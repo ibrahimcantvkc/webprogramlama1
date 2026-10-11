@@ -12,10 +12,10 @@
 
 | GitHub | İsim | Rol |
 |--------|------|-----|
-| @kullanici1 | Mustafa | Çeviri + Mimari Slayt |
-| @kullanici2 | Semih | Sınıf İçi Sunum (Teori) |
-| @kullanici3 | Efe | Uygulama (Canlı Kod) |
-| @kullanici4 | Yusuf | Soru-Cevap (QA) |
+| @kullanici1 | Mustafa | Uygulama (Canlı Kod) |
+| @kullanici2 | Semih | Çeviri |
+| @kullanici3 | Efe | Soru-Cevap (QA) |
+| @kullanici4 | Yusuf | Sunum |
 
 ## Ne Yaptık?
 
