@@ -2,53 +2,117 @@
 <html lang="tr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ekip Arkadaşı Seçici — Web Standartları Demo</title>
-    <link rel="stylesheet" href="styles/style.css">
+    <title>MDN Web Standartları - Sıralı Profil Çekimi</title>
+    <style>
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            background-image: linear-gradient(rgba(15, 15, 15, 0.75), rgba(15, 15, 15, 0.90)), url('https://images.unsplash.com/photo-1542831371-29b0f74f9713?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+            background-size: cover; 
+            background-position: center; 
+            background-attachment: fixed; 
+            color: #ffffff; 
+            padding: 20px; 
+            text-align: center; 
+        }
+        .kart-alani { 
+            display: flex; 
+            flex-wrap: wrap; 
+            gap: 20px; 
+            justify-content: center; 
+            margin-top: 30px; 
+        }
+        .profil-karti { 
+            background: rgba(30, 30, 30, 0.6); 
+            backdrop-filter: blur(8px); 
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.1); 
+            padding: 20px; 
+            border-radius: 12px; 
+            box-shadow: 0 8px 32px rgba(0,0,0,0.5); 
+            width: 220px;
+            animation: yavascaGel 0.4s ease-out; 
+            color: #ffffff; 
+        }
+        .profil-karti img { 
+            border-radius: 50%; 
+            width: 120px; 
+            height: 120px; 
+            object-fit: cover; 
+            border: 3px solid #00a8ff; 
+        }
+        .profil-karti h3 {
+            margin: 15px 0 5px 0;
+            color: #ffffff;
+        }
+        .rol {
+            color: #cccccc; 
+            font-style: italic;
+            font-size: 14px;
+        }
+        button {
+            padding: 12px 24px; 
+            cursor: pointer; 
+            background-color: #0056b3; 
+            color: white; 
+            border: 1px solid rgba(255,255,255,0.2); 
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            margin-top: 10px;
+        }
+        button:hover { 
+            background-color: #00a8ff; 
+            transform: translateY(-2px); 
+        }
+
+        @keyframes yavascaGel {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
 </head>
 <body>
-    <header>
-        <h1>🌐 Web Programlama I</h1>
-        <p class="alt-baslik">SCÜ Şarkışla UBYO | 01 - Web Temelleri Uygulama Demosu</p>
-    </header>
+    <h2>Ekip Arkadaşı Seçici (Sıralı Simülasyon)</h2>
+    <p style="color: #cccccc; margin-bottom: 20px;">Web standartlarında veri manipülasyonu ve hata yönetimi demosu.</p>
+    
+    <!-- İŞTE BUTONUMUZ BURADA -->
+    <button id="getirBtn">Sıradaki Profili Getir</button>
+    
+    <div id="sahne" class="kart-alani"></div>
 
-    <main>
-        <section class="demo-alani">
-            <h2>Ekip Arkadaşı Seçici</h2>
-            <p class="aciklama">
-                Web standartlarında <strong>veri manipülasyonu</strong> ve 
-                <strong>hata yönetimi</strong> (soft skill) demosu.
-            </p>
+    <script>
+        const btn = document.getElementById('getirBtn');
+        const sahne = document.getElementById('sahne');
+        
+        const benimListem = [
+            { isim: "Mustafa", rol: "BST Öğrencisi", foto: "images/mustafa.png" },
+            { isim: "Semih", rol: "BST Öğrencisi", foto: "images/semih.png" },
+            { isim: "Efe", rol: "BST Öğrencisi", foto: "images/efe.jpeg" },
+            { isim: "Yusuf", rol: "BST Öğrencisi", foto: "images/yusuf.jpeg" }
+        ];
 
-            <!-- Butona tıklanınca sıradaki profil eklenir -->
-            <button id="getirBtn" aria-label="Sıradaki ekip üyesini göster">
-                🔄 Sıradaki Profili Getir
-            </button>
+        let sira = 0; 
 
-            <button id="temizleBtn" aria-label="Tüm kartları temizle">
-                🗑️ Temizle
-            </button>
+        btn.addEventListener('click', () => {
+            const secilenKisi = benimListem[sira];
+            const kart = document.createElement('div');
+            kart.className = 'profil-karti';
+            
+            kart.innerHTML = `
+                <img src="${secilenKisi.foto}" alt="${secilenKisi.isim} Fotoğrafı" onerror="this.src='https://ui-avatars.com/api/?name=${secilenKisi.isim}&background=00a8ff&color=fff&size=128';">
+                <h3>${secilenKisi.isim}</h3>
+                <p class="rol">${secilenKisi.rol}</p>
+            `;
+            
+            sahne.prepend(kart); 
+            sira++; 
 
-            <!-- Profil kartlarının yerleştirileceği alan -->
-            <div id="sahne" class="kart-alani" role="list" aria-label="Ekip üyeleri"></div>
-        </section>
-
-        <section class="bilgi-alani">
-            <h2>📚 Bu Demo Ne Gösteriyor?</h2>
-            <ul>
-                <li><strong>DOM Manipülasyonu:</strong> <code>createElement</code>, <code>prepend</code></li>
-                <li><strong>Event Listener:</strong> Buton tıklama olayı</li>
-                <li><strong>Hata Yönetimi:</strong> <code>onerror</code> ile kırık resim koruması</li>
-                <li><strong>CSS Animasyonu:</strong> <code>@keyframes yavascaGel</code></li>
-                <li><strong>Glassmorphism:</strong> <code>backdrop-filter: blur()</code></li>
-            </ul>
-        </section>
-    </main>
-
-    <footer>
-        <p>SCÜ Şarkışla UBYO — Web Programlama I | 2026 Güz | 404klup</p>
-    </footer>
-
-    <script src="scripts/main.js"></script>
+            if (sira >= benimListem.length) {
+                sira = 0;
+            }
+        });
+    </script>
 </body>
 </html>
