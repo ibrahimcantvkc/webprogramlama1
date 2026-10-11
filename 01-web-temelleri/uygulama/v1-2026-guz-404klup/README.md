@@ -41,21 +41,26 @@ v1-2026-guz-404klup/
 └── images/             ← ekip fotoğrafları (mustafa.png, semih.png, efe.jpeg, yusuf.jpeg)
 ```
 
+## 🚀 Canlı Demo
+
+**👉 [https://mustafaicen86-star.github.io/ekip-profil](https://mustafaicen86-star.github.io/ekip-profil)**
+
+Butona tıkla → ekip kartları sırayla gelir.
+
 ## Nasıl Çalıştırılır?
 
-### Yöntem 1: VS Code Live Server
+### Yöntem 1: Canlı Link (Tavsiye Edilen)
+Yukarıdaki **Canlı Demo** linkine tıkla, tarayıcıda direkt açılır.
+
+### Yöntem 2: VS Code Live Server
 `index.html` dosyasına sağ tıkla → **Open with Live Server**
 
-### Yöntem 2: Python HTTP Sunucusu
+### Yöntem 3: Python HTTP Sunucusu
 ```bash
 cd v1-2026-guz-404klup
 python -m http.server 8000
 ```
 Tarayıcıda `http://localhost:8000` adresini açın.
-
-### Yöntem 3: Doğrudan Açma
-`index.html` dosyasını çift tıklayarak tarayıcıda açın.  
-*(Not: Bazı dosya yolu sorunları olabilir, Live Server tercih edilir.)*
 
 ## Öğrenme Çıktıları
 
