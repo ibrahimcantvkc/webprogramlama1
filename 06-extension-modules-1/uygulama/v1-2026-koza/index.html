@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hava Durumu ve Analiz Portalı</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="container">
+    <header class="header">
+      <h1>🌦️ Hava Durumu ve Analiz Portalı</h1>
+      <p class="subtitle">Open-Meteo ile canlı hava durumu ve 7 saatlik sıcaklık trendi</p>
+    </header>
+
+    <section class="card search-card">
+      <label for="city-input" class="sr-only">Şehir adı</label>
+      <input type="text" id="city-input" placeholder="Şehir adı girin (örn. Ankara)" autocomplete="off">
+      <button id="search-btn" type="button">Veri Getir</button>
+    </section>
+
+    <p id="loading" class="status loading hidden">Veri yükleniyor...</p>
+    <p id="error" class="status error hidden"></p>
+
+    <section id="result-card" class="card result-card hidden">
+      <div class="result-top">
+        <div>
+          <h2 id="city-name"></h2>
+          <p id="city-meta" class="meta"></p>
+        </div>
+        <div class="temp-box">
+          <span id="temperature" class="temperature"></span>
+          <span id="condition" class="condition"></span>
+        </div>
+      </div>
+
+      <div class="details">
+        <div class="detail-item">
+          <span class="detail-label">Rüzgar</span>
+          <span id="wind" class="detail-value"></span>
+        </div>
+        <div class="detail-item">
+          <span class="detail-label">Yön</span>
+          <span id="wind-dir" class="detail-value"></span>
+        </div>
+        <div class="detail-item">
+          <span class="detail-label">Ölçüm Zamanı</span>
+          <span id="obs-time" class="detail-value"></span>
+        </div>
+      </div>
+
+      <button id="fav-btn" type="button" class="fav-btn">⭐ Favorilere Ekle</button>
+
+      <div class="chart-wrap">
+        <h3>7 Saatlik Sıcaklık Trendi (°C)</h3>
+        <canvas id="temp-chart" width="640" height="300"></canvas>
+      </div>
+    </section>
+
+    <section class="card favorites-card">
+      <h2>Favori Şehirler</h2>
+      <p id="fav-empty" class="meta">Henüz favori şehir eklemediniz.</p>
+      <ul id="fav-list" class="fav-list"></ul>
+    </section>
+
+    <footer class="footer">
+      Veriler <a href="https://open-meteo.com" target="_blank" rel="noopener noreferrer">Open-Meteo</a> tarafından sağlanmaktadır.
+    </footer>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
