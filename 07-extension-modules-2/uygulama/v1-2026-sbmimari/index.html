@@ -4,80 +4,414 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistem Mimarları — Web Forms & Tooling Demo</title>
-    <!-- Hazırladığın stil dosyasını bağlıyoruz -->
+    <title>Sistem Mimarları — DevOps & Web Forms Studio v2.4</title>
+    <meta name="description" content="SCÜ Şarkışla UBYO Web Programlama I - Web Forms, Constraint Validation ve Client-Side Tooling Mimari Konsolu">
+    
+    <!-- Google Fonts: Inter & JetBrains Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    
     <link rel="stylesheet" href="style.css">
     <script defer src="form-demo.js"></script>
 </head>
 
-<body>
-    <header class="header">
-        <h1>Sistem Operasyon Bildirim Formu</h1>
-        <p>MDN Web Forms & Client-Side Tooling Mimarisi</p>
+<body class="dark-theme">
+    <!-- Üst OS / IDE Başlık Çubuğu -->
+    <header class="studio-header">
+        <div class="window-controls">
+            <span class="dot dot-red" title="Kapat"></span>
+            <span class="dot dot-yellow" title="Simge Durumuna Küçült"></span>
+            <span class="dot dot-green" title="Tam Ekran"></span>
+            <div class="brand-title">
+                <span class="brand-icon">⚡</span>
+                <span class="brand-name">Ş.B. Mimari</span>
+                <span class="brand-separator">/</span>
+                <span class="brand-sub">DevOps & Form Tooling Platform</span>
+                <span class="version-badge">v2.4 LTS</span>
+            </div>
+        </div>
+
+        <div class="studio-status-bar">
+            <div class="status-indicator online" id="serverStatusBadge">
+                <span class="pulsing-indicator"></span>
+                <span>Vite Dev: <strong id="vitePortText">localhost:5173</strong></span>
+            </div>
+            <div class="status-indicator">
+                <span>Node: <strong>v20.18.0</strong></span>
+            </div>
+            <div class="status-indicator">
+                <span>API: <strong>Constraint Validation</strong></span>
+            </div>
+            <button id="btnAudioToggle" class="icon-toggle-btn" title="Ses Efektlerini Aç/Kapat" aria-label="Ses Efektleri">
+                <span id="audioIcon">🔊</span>
+            </button>
+        </div>
     </header>
 
-    <main class="container">
-        <form id="mesajFormu" action="#" method="POST" enctype="multipart/form-data" novalidate>
-            <!-- 1. Grup: Kimlik Bilgileri -->
-            <fieldset>
-                <legend>Operatör Kimliği</legend>
-
-                <div class="form-group">
-                    <label for="adiniz">Ad Soyad: <span class="required">*</span></label>
-                    <input type="text" id="adiniz" name="adiniz" placeholder="Örn: Mert Özsoy" required minlength="3"
-                        autocomplete="name">
-                    <span class="error-msg" aria-live="polite"></span>
+    <!-- Ana Çalışma Alanı: 2 Kolonlu Mimari Panel -->
+    <main class="studio-workspace">
+        
+        <!-- ================= SOL PANEL: FORM STÜDYOSU ================= -->
+        <section class="panel-card form-workspace" id="formWorkspace">
+            <div class="panel-header">
+                <div class="panel-title-group">
+                    <span class="panel-icon">📝</span>
+                    <h2>Sistem Operasyon Bildirim Formu</h2>
                 </div>
-
-                <div class="form-group">
-                    <label for="eposta">E-posta Adresi: <span class="required">*</span></label>
-                    <input type="email" id="eposta" name="eposta" placeholder="ad@ornek.com" required
-                        autocomplete="email">
-                    <span class="error-msg" aria-live="polite"></span>
+                <div class="panel-actions">
+                    <span class="form-badge" id="formValidityBadge">Doldurulmayı Bekliyor</span>
+                    <button type="button" id="btnPrefill" class="btn-ghost" title="Örnek verilerle formu doldur">⚡ Hızlı Doldur</button>
                 </div>
-            </fieldset>
-
-            <!-- 2. Grup: Görev ve Sistem Bilgileri -->
-            <fieldset>
-                <legend>Sistem Detayları</legend>
-
-                <div class="form-group">
-                    <label for="sunucuKodu">Sunucu Kimliği (Format: SRV-XXXX): <span class="required">*</span></label>
-                    <input type="text" id="sunucuKodu" name="sunucuKodu" placeholder="SRV-2026" pattern="^SRV-[0-9]{4}$"
-                        title="SRV- ardından 4 haneli rakam giriniz (Örn: SRV-1024)" required>
-                    <span class="error-msg" aria-live="polite"></span>
-                </div>
-
-                <div class="form-group">
-                    <label for="oncelik">Operasyon Önceliği:</label>
-                    <select id="oncelik" name="oncelik">
-                        <option value="dusuk">Düşük (Rutin Kontrol)</option>
-                        <option value="orta" selected>Orta (Bakım & Güncelleme)</option>
-                        <option value="yuksek">Kritik (Acil Müdahale)</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label for="raporDosyasi">Sistem Log Dosyası (.log, .txt):</label>
-                    <input type="file" id="raporDosyasi" name="raporDosyasi" accept=".log,.txt">
-                    <small>Maksimum 2MB. enctype="multipart/form-data" ile taşınır.</small>
-                </div>
-            </fieldset>
-
-            <div class="form-actions">
-                <button type="submit" id="btnGonder">Operasyonu Başlat (Submit)</button>
-                <button type="reset" id="btnSifirla">Temizle</button>
             </div>
-        </form>
 
-        <!-- Canlı Payload Paneli -->
-        <section id="terminalOutput" class="terminal-panel" hidden>
-            <h3>📡 İstemci Tarafı (Client-Side) İletim Analizi</h3>
-            <p><strong>HTTP Yöntemi:</strong> <span class="badge">POST</span></p>
-            <p><strong>MIME Türü:</strong> <code>multipart/form-data</code></p>
-            <pre><code id="payloadView">// Form verileri yakalandığında buraya yazılacak...</code></pre>
+            <!-- Form İçeriği -->
+            <form id="mesajFormu" action="https://jsonplaceholder.typicode.com/posts" method="POST" enctype="multipart/form-data" novalidate autocomplete="off">
+                
+                <!-- 1. Grup: Operatör Kimliği -->
+                <fieldset class="form-section">
+                    <legend class="section-legend">
+                        <span class="legend-num">01</span>
+                        <span>Operatör Kimlik Bilgileri</span>
+                    </legend>
+                    <p class="legend-desc">MDN: HTML5 yerel metin, e-posta ve doğrulama denetimleri</p>
+
+                    <div class="form-grid">
+                        <!-- Ad Soyad -->
+                        <div class="form-group" id="group-adiniz">
+                            <label for="adiniz" class="form-label">
+                                Ad Soyad <span class="required" aria-hidden="true">*</span>
+                            </label>
+                            <div class="input-wrapper">
+                                <span class="input-icon">👤</span>
+                                <input type="text" id="adiniz" name="adiniz" placeholder="Örn: Mert Özsoy" required minlength="3" maxlength="50" autocomplete="name">
+                                <span class="validity-icon" aria-hidden="true"></span>
+                            </div>
+                            <span class="error-msg" id="error-adiniz" aria-live="polite"></span>
+                        </div>
+
+                        <!-- E-posta Adresi -->
+                        <div class="form-group" id="group-eposta">
+                            <label for="eposta" class="form-label">
+                                E-posta Adresi <span class="required" aria-hidden="true">*</span>
+                                <span class="help-tooltip" title="type='email' intranet (a@b) adreslerine varsayılan olarak izin verir.">ℹ️</span>
+                            </label>
+                            <div class="input-wrapper">
+                                <span class="input-icon">✉️</span>
+                                <input type="email" id="eposta" name="eposta" placeholder="ad@sirket.com" required autocomplete="email">
+                                <span class="validity-icon" aria-hidden="true"></span>
+                            </div>
+                            <span class="error-msg" id="error-eposta" aria-live="polite"></span>
+                        </div>
+                    </div>
+
+                    <!-- Telefon Numarası (HTML5 tel) -->
+                    <div class="form-group" id="group-telefon">
+                        <label for="telefon" class="form-label">
+                            Acil İletişim Hattı (Tel)
+                            <span class="optional-tag">(Opsiyonel)</span>
+                        </label>
+                        <div class="input-wrapper">
+                            <span class="input-icon">📞</span>
+                            <input type="tel" id="telefon" name="telefon" placeholder="05XX XXX XX XX" pattern="[0-9\s+-]{10,15}">
+                            <span class="validity-icon" aria-hidden="true"></span>
+                        </div>
+                        <span class="error-msg" id="error-telefon" aria-live="polite"></span>
+                    </div>
+                </fieldset>
+
+                <!-- 2. Grup: Görev ve Sistem Detayları -->
+                <fieldset class="form-section">
+                    <legend class="section-legend">
+                        <span class="legend-num">02</span>
+                        <span>Hedef Sistem & Kaynak Yapılandırması</span>
+                    </legend>
+                    <p class="legend-desc">MDN: Regex pattern, range kontrolü ve öncelik seçimleri</p>
+
+                    <div class="form-grid">
+                        <!-- Sunucu Kimliği (Pattern Kuralı) -->
+                        <div class="form-group" id="group-sunucuKodu">
+                            <label for="sunucuKodu" class="form-label">
+                                Sunucu Kimliği (Format: SRV-XXXX) <span class="required" aria-hidden="true">*</span>
+                            </label>
+                            <div class="input-wrapper">
+                                <span class="input-icon">🖥️</span>
+                                <input type="text" id="sunucuKodu" name="sunucuKodu" placeholder="SRV-2026" pattern="^SRV-[0-9]{4}$" title="Kural: 'SRV-' sonrasında 4 haneli sayı girilmelidir (Örn: SRV-4040)" required>
+                                <span class="validity-icon" aria-hidden="true"></span>
+                            </div>
+                            <span class="error-msg" id="error-sunucuKodu" aria-live="polite"></span>
+                        </div>
+
+                        <!-- Operasyon Önceliği -->
+                        <div class="form-group" id="group-oncelik">
+                            <label for="oncelik" class="form-label">Operasyon Önceliği:</label>
+                            <div class="input-wrapper">
+                                <span class="input-icon">🚨</span>
+                                <select id="oncelik" name="oncelik">
+                                    <option value="dusuk">🟢 Düşük (Rutin Sağlık Kontrolü)</option>
+                                    <option value="orta" selected>🟡 Orta (Bakım & Sürüm Güncelleme)</option>
+                                    <option value="yuksek">🔴 Yüksek (Kritik Acil Müdahale)</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Range Kontrolü: Kaynak Tahsisi -->
+                    <div class="form-group" id="group-kaynak">
+                        <div class="slider-label-row">
+                            <label for="kaynakKullanimi" class="form-label">Kaynak / Bant Genişliği Tahsisi (%):</label>
+                            <span class="slider-value-badge" id="sliderValue">50% RAM/CPU</span>
+                        </div>
+                        <input type="range" id="kaynakKullanimi" name="kaynakKullanimi" min="10" max="100" step="5" value="50" class="custom-range">
+                    </div>
+
+                    <!-- Dosya Yükleme (Sürükle Bırak) -->
+                    <div class="form-group" id="group-dosya">
+                        <label class="form-label">
+                            Sistem Logu / Artifact (.log, .txt, .json):
+                            <span class="optional-tag">Maks. 2MB (multipart/form-data)</span>
+                        </label>
+                        <div class="drop-zone" id="dropZone">
+                            <input type="file" id="raporDosyasi" name="raporDosyasi" accept=".log,.txt,.json,.png" class="file-input-hidden">
+                            <div class="drop-zone-content">
+                                <span class="upload-icon">📂</span>
+                                <p class="drop-prompt"><strong>Dosyayı buraya sürükleyin</strong> veya tıklayıp seçin</p>
+                                <span class="file-selected-name" id="fileSelectedName">Henüz dosya seçilmedi</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Güvenlik & Doğrulama Anahtarları -->
+                    <div class="checkbox-group">
+                        <label class="custom-checkbox">
+                            <input type="checkbox" id="chkDryRun" name="dryRun" checked>
+                            <span class="checkbox-mark"></span>
+                            <span class="checkbox-label"><strong>Simülasyon Modu (Dry Run):</strong> Veritabanına yazmadan doğrula</span>
+                        </label>
+                        <label class="custom-checkbox">
+                            <input type="checkbox" id="chkSanitize" name="sanitize" checked>
+                            <span class="checkbox-mark"></span>
+                            <span class="checkbox-label"><strong>Giriş Temizleme (Sanitize):</strong> XSS ve zararlı kodları filtrele</span>
+                        </label>
+                    </div>
+                </fieldset>
+
+                <!-- Form Butonları -->
+                <div class="form-actions">
+                    <button type="submit" id="btnGonder" class="btn btn-primary">
+                        <span class="btn-spinner" hidden id="btnSpinner"></span>
+                        <span class="btn-icon">🚀</span>
+                        <span class="btn-text">Operasyonu Başlat (Submit)</span>
+                    </button>
+                    <button type="button" id="btnExportJson" class="btn btn-secondary">
+                        <span class="btn-icon">📋</span>
+                        <span>JSON Kopyala</span>
+                    </button>
+                    <button type="reset" id="btnSifirla" class="btn btn-danger">
+                        <span class="btn-icon">↺</span>
+                        <span>Sıfırla</span>
+                    </button>
+                </div>
+            </form>
+
+            <!-- CANLI CONSTRAINT VALIDATION HUD (Debugger) -->
+            <section class="validation-hud" id="validationHud" aria-label="Constraint Validation Canlı Analizi">
+                <div class="hud-header">
+                    <div class="hud-title">
+                        <span class="hud-icon">🔍</span>
+                        <strong>Canlı Constraint Validation API Monitörü</strong>
+                    </div>
+                    <span class="hud-target" id="hudActiveElement">Aktif Alan: Yok</span>
+                </div>
+                <div class="hud-badges-grid" id="hudBadges">
+                    <div class="hud-badge" id="badge-valid"><span class="k">valid:</span> <span class="v">-</span></div>
+                    <div class="hud-badge" id="badge-valueMissing"><span class="k">valueMissing:</span> <span class="v">-</span></div>
+                    <div class="hud-badge" id="badge-typeMismatch"><span class="k">typeMismatch:</span> <span class="v">-</span></div>
+                    <div class="hud-badge" id="badge-patternMismatch"><span class="k">patternMismatch:</span> <span class="v">-</span></div>
+                    <div class="hud-badge" id="badge-tooShort"><span class="k">tooShort:</span> <span class="v">-</span></div>
+                    <div class="hud-badge" id="badge-customError"><span class="k">customError:</span> <span class="v">-</span></div>
+                </div>
+                <p class="hud-footnote">💡 <em>MDN Kuralı:</em> Tarayıcının yerleşik <code>element.validity</code> nesnesi formun her tuş vuruşunda gerçek zamanlı okunmaktadır.</p>
+            </section>
         </section>
+
+        <!-- ================= SAĞ PANEL: TOOLCHAIN & TERMINAL STÜDYOSU ================= -->
+        <section class="panel-card terminal-workspace" id="toolchainWorkspace">
+            <!-- Terminal Sekme Çubuğu -->
+            <div class="terminal-tab-bar">
+                <button type="button" class="tab-btn active" data-tab="tab-payload">
+                    <span class="tab-icon">📡</span>
+                    <span>FormData & Ağ İnceleyici</span>
+                </button>
+                <button type="button" class="tab-btn" data-tab="tab-toolchain">
+                    <span class="tab-icon">⚙️</span>
+                    <span>Client-Side Toolchain (npm/Vite)</span>
+                </button>
+                <button type="button" class="tab-btn" data-tab="tab-mdn">
+                    <span class="tab-icon">📚</span>
+                    <span>Mimari & MDN Notları</span>
+                </button>
+            </div>
+
+            <!-- SEKME 1: CANLI FORMDATA & PAYLOAD İNCELEYİCİ -->
+            <div class="tab-content active" id="tab-payload">
+                <div class="console-box">
+                    <div class="console-header">
+                        <div class="request-meta">
+                            <span class="http-badge post">POST</span>
+                            <code class="url-badge">https://jsonplaceholder.typicode.com/posts</code>
+                            <span class="mime-badge">multipart/form-data</span>
+                        </div>
+                        <div class="console-actions">
+                            <button type="button" class="btn-micro" id="btnCopyPayload">📋 Kopyala</button>
+                            <button type="button" class="btn-micro" id="btnClearConsole">🧹 Temizle</button>
+                        </div>
+                    </div>
+
+                    <div class="console-body">
+                        <!-- HTTP Headers Önizleme -->
+                        <div class="headers-block">
+                            <span class="block-title">// İstemci Tarafı HTTP İstek Başlıkları (Simüle Edilen)</span>
+                            <pre><code id="headersPreview">POST /posts HTTP/1.1
+Host: jsonplaceholder.typicode.com
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
+X-Requested-With: FetchAPI (FormData instance)
+Origin: http://localhost:5173</code></pre>
+                        </div>
+
+                        <!-- Canlı FormData JSON -->
+                        <div class="payload-block">
+                            <span class="block-title">// Yakalanan Canlı FormData Paketi:</span>
+                            <pre><code id="payloadView">{
+  "bilgi": "Form gönderildiğinde veya bir alan değiştiğinde FormData yükü burada anlık çözümlenecektir..."
+}</code></pre>
+                        </div>
+
+                        <!-- Sunucu Yanıtı -->
+                        <div class="response-block" id="responseBlock" hidden>
+                            <span class="block-title">// Sunucu Yanıtı (<span id="responseStatusBadge">201 Created</span>):</span>
+                            <pre><code id="responseBodyView">Henüz istek gönderilmedi.</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SEKME 2: CLIENT-SIDE TOOLCHAIN (npm, Vite, ESLint, Vitest, CI/CD) -->
+            <div class="tab-content" id="tab-toolchain">
+                <div class="toolchain-controller">
+                    <div class="toolchain-info">
+                        <h3>🛠️ Modül 2: Client-Side Web Development Tools</h3>
+                        <p>Aşağıdaki komutlara tıklayarak MDN dökümantasyonundaki araç zinciri adımlarını sanal konsolda çalıştırabilirsiniz:</p>
+                    </div>
+
+                    <!-- Komut Butonları -->
+                    <div class="command-grid">
+                        <button type="button" class="cmd-card" id="btnRunLint">
+                            <div class="cmd-icon">🔍</div>
+                            <div class="cmd-text">
+                                <span class="cmd-name">npm run lint</span>
+                                <span class="cmd-desc">ESLint Flat Config kural denetimi</span>
+                            </div>
+                        </button>
+
+                        <button type="button" class="cmd-card" id="btnRunTest">
+                            <div class="cmd-icon">🧪</div>
+                            <div class="cmd-text">
+                                <span class="cmd-name">npm run test</span>
+                                <span class="cmd-desc">Vitest ile doğrulama birim testleri</span>
+                            </div>
+                        </button>
+
+                        <button type="button" class="cmd-card" id="btnRunBuild">
+                            <div class="cmd-icon">📦</div>
+                            <div class="cmd-text">
+                                <span class="cmd-name">npm run build</span>
+                                <span class="cmd-desc">Vite ile optimize bundle üretimi</span>
+                            </div>
+                        </button>
+
+                        <button type="button" class="cmd-card" id="btnRunPipeline">
+                            <div class="cmd-icon">🚀</div>
+                            <div class="cmd-text">
+                                <span class="cmd-name">git push (CI/CD)</span>
+                                <span class="cmd-desc">GitHub Actions Pages dağıtım hattı</span>
+                            </div>
+                        </button>
+                    </div>
+
+                    <!-- Sanal Terminal Çıktısı -->
+                    <div class="virtual-terminal">
+                        <div class="terminal-bar">
+                            <span class="term-title">bash — Takım Ş.B. Mimari Terminal</span>
+                            <button type="button" class="btn-micro" id="btnClearTerm">Temizle</button>
+                        </div>
+                        <pre class="terminal-logs" id="terminalLogs"><code class="term-line prompt">$ npm run dev</code>
+<code class="term-line success">  VITE v5.4.2  ready in 240 ms</code>
+<code class="term-line info">  ➜  Local:   http://localhost:5173/</code>
+<code class="term-line info">  ➜  Network: use --host to expose</code>
+<code class="term-line prompt">$ // Komut çalıştırmak için yukarıdaki butonlara tıklayınız...</code></pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SEKME 3: MİMARİ & MDN NOTLARI -->
+            <div class="tab-content" id="tab-mdn">
+                <div class="mdn-notes-list">
+                    <div class="callout-card alert-warning">
+                        <div class="callout-header">
+                            <span class="callout-icon">⚠️</span>
+                            <strong>İstemci Doğrulaması Asla Tek Başına Güvenlik Değildir!</strong>
+                        </div>
+                        <p>Kötü niyetli kullanıcılar tarayıcı doğrulamasını (JS veya DevTools üzerinden) kolayca kapatıp doğrudan HTTP isteği gönderebilir. Sunucu tarafında mutlaka ikincil doğrulama ve temizleme (sanitization) yapılmalıdır.</p>
+                    </div>
+
+                    <div class="callout-card alert-tip">
+                        <div class="callout-header">
+                            <span class="callout-icon">💡</span>
+                            <strong>FormData ile fetch() Kullanırken Content-Type Yazmayın!</strong>
+                        </div>
+                        <p>Gövdeye <code>FormData</code> nesnesi verdiğinizde tarayıcı, benzersiz <code>boundary</code> değerine sahip <code>multipart/form-data</code> başlığını otomatik olarak üretir.</p>
+                    </div>
+
+                    <div class="callout-card alert-warning">
+                        <div class="callout-header">
+                            <span class="callout-icon">🛑</span>
+                            <strong>Şifreleri ve Hassas Verileri Asla GET ile Göndermeyin!</strong>
+                        </div>
+                        <p>GET yöntemi verileri URL adres çubuğuna ekler; sunucu erişim loglarına, tarayıcı geçmişine ve proxy sunuculara düz metin olarak kaydedilir.</p>
+                    </div>
+
+                    <div class="callout-card alert-note">
+                        <div class="callout-header">
+                            <span class="callout-icon">ℹ️</span>
+                            <strong>a@b İntranet İstisnası</strong>
+                        </div>
+                        <p><code>type="email"</code> varsayılan regex kuralı yerel ağ (intranet) adreslerine izin verdiği için <code>a@b</code> geçerli bir e-posta kabul edilir. Daha sıkı kural için <code>pattern</code> özniteliği kullanılmalıdır.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
     </main>
+
+    <!-- Bildirim / Toast Konteyneri -->
+    <div id="toastContainer" class="toast-container" aria-live="assertive"></div>
+
+    <!-- Alt Bilgi Çubuğu (Footer) -->
+    <footer class="studio-footer">
+        <div class="footer-left">
+            <span>🎓 SCÜ Şarkışla UBYO — Web Programlama I</span>
+            <span class="separator">|</span>
+            <span>Modül: 07-extension-modules-2</span>
+            <span class="separator">|</span>
+            <span>Takım: <strong>Ş.B. Mimari</strong></span>
+        </div>
+        <div class="footer-right">
+            <span>Mimari Uygulama: <strong>Mert Özsoy</strong></span>
+            <span class="separator">|</span>
+            <span id="uptimeClock">Çalışma Süresi: 00:00:00</span>
+        </div>
+    </footer>
 </body>
 
 </html>
