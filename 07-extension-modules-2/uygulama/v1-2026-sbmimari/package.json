@@ -1,0 +1,14 @@
+{
+  "name": "v1-2026-sbmimari",
+  "version": "1.0.0",
+  "description": "SCÜ Şarkışla UBYO Web Programlama I - Web Forms ve Tooling Demosu",
+  "main": "npm-demo.js",
+  "scripts": {
+    "start": "node npm-demo.js"
+  },
+  "author": "Takım Ş.B. Mimari",
+  "license": "MIT",
+  "dependencies": {
+    "chalk": "^4.1.2"
+  }
+}
