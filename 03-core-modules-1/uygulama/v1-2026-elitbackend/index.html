@@ -1,0 +1,1575 @@
+<!DOCTYPE html>
+<html lang="tr" class="dark scroll-smooth">
+<head>
+    <!-- ==========================================================================
+         MDN DERS 1: WEB SAYFASININ BAŞLIĞINDA (HEAD) NE VAR? (META VERİLER)
+         ========================================================================== -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="AETHER-IX Baş Araştırmacısı // Web Geliştirme Vize Projesi">
+    <meta name="description" content="MDN 'Structuring content with HTML' müfredatına %100 uyumlu, semantik HTML5 elemanları, erişilebilir gezegen veri tablosu, resmi mektup işaretlemesi ve telemetri formları içeren akademik derin uzay arşivi.">
+    <meta name="keywords" content="HTML5, Semantik Web, MDN, Structuring Content, Gezegen Tablosu, Erişilebilirlik, AETHER-IX, Vize Projesi">
+    
+    <!-- Open Graph (Sosyal Medya & Zengin Önizleme Protokolü) -->
+    <meta property="og:title" content="AETHER-IX // Derin Uzay ve Ötegezegen Telemetri Arşivi">
+    <meta property="og:description" content="MDN HTML5 İçerik Yapılandırma (Structuring Content) Akademik Referans Projesi.">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="tr_TR">
+
+    <title>AETHER-IX // Derin Uzay ve Ötegezegen Telemetri Arşivi [MDN HTML5 Referansı]</title>
+
+    <!-- Google Fonts: Space Grotesk (Geometrik Başlıklar), Inter (Gövde), JetBrains Mono (Teknik Etiketler) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:ital,wght@0,400;0,600;0,700;1,400&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        aether: {
+                            bg: '#090A0F',
+                            surface: '#12141D',
+                            surfaceHover: '#191C28',
+                            border: '#1E2433',
+                            text: '#E2E8F0',
+                            muted: '#94A3B8',
+                            orange: '#FF4F00',
+                            cyan: '#38BDF8',
+                            emerald: '#10B981',
+                            amber: '#F59E0B'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Space Grotesk', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* ==========================================================================
+           BRÜTALİST BİLİMSEL ARŞİV ÖZEL STİLLERİ & MDN X-RAY DENETÇİ SİSTEMİ
+           ========================================================================== */
+        body {
+            background-color: #090A0F;
+            color: #E2E8F0;
+            background-image: 
+                linear-gradient(to right, rgba(30, 36, 51, 0.25) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(30, 36, 51, 0.25) 1px, transparent 1px);
+            background-size: 48px 48px;
+        }
+
+        /* MDN Gezegen Tablosu Özel <col> Sütun Vurgusu (MDN Challenge Kuralı) */
+        col.mdn-planet-name-col {
+            border: 2px solid #FF4F00;
+            background-color: rgba(255, 79, 0, 0.07);
+        }
+
+        /* Tablo Hücre Çizgileri */
+        .telemetry-table th,
+        .telemetry-table td {
+            border: 1px solid #1E2433;
+            padding: 0.75rem 1rem;
+        }
+
+        /* Akademik Denetçi Modu (MDN Semantik X-Ray) Aktifken Çalışan Kurallar */
+        body.xray-active [data-mdn-tag] {
+            position: relative;
+            outline: 1.5px dashed #38BDF8 !important;
+            outline-offset: -1px;
+            background-color: rgba(56, 189, 248, 0.02);
+            transition: all 0.25s ease;
+        }
+
+        body.xray-active [data-mdn-tag]:hover {
+            outline: 2px solid #FF4F00 !important;
+            background-color: rgba(255, 79, 0, 0.06);
+            z-index: 20;
+        }
+
+        body.xray-active [data-mdn-tag]::before {
+            content: attr(data-mdn-tag);
+            position: absolute;
+            top: 0;
+            right: 0;
+            background-color: #FF4F00;
+            color: #090A0F;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.65rem;
+            font-weight: 700;
+            padding: 2px 6px;
+            letter-spacing: 0.04em;
+            z-index: 30;
+            pointer-events: none;
+            box-shadow: -2px 2px 8px rgba(0, 0, 0, 0.6);
+            border-bottom-left-radius: 4px;
+        }
+
+        body.xray-active [data-mdn-tag]:hover::after {
+            content: "MDN KURALI: " attr(data-mdn-info);
+            position: absolute;
+            bottom: 100%;
+            right: 0;
+            background-color: #090A0F;
+            color: #38BDF8;
+            border: 1px solid #38BDF8;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            padding: 6px 10px;
+            white-space: nowrap;
+            z-index: 40;
+            pointer-events: none;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.85);
+            border-radius: 4px;
+            margin-bottom: 4px;
+        }
+
+        /* Özel Kaydırma Çubuğu */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #090A0F;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1E2433;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #FF4F00;
+        }
+
+        @keyframes pulseGlow {
+            0%, 100% { opacity: 0.4; }
+            50% { opacity: 1; }
+        }
+        .animate-pulse-slow {
+            animation: pulseGlow 3s infinite ease-in-out;
+        }
+    </style>
+</head>
+
+<body class="min-h-screen flex flex-col selection:bg-aether-orange selection:text-black antialiased">
+
+    <!-- ==========================================================================
+         MDN ERİŞİLEBİLİRLİK KURALI: ANA İÇERİĞE ATLA (SKIP-TO-MAIN-CONTENT LINK)
+         ========================================================================== -->
+    <a href="#ana-icerik" 
+       class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 focus:bg-aether-orange focus:text-black focus:font-mono focus:font-bold focus:px-5 focus:py-3 focus:rounded focus:shadow-2xl">
+        [Ana İçeriğe Doğrudan Atla // Skip to Main Content]
+    </a>
+
+    <!-- ==========================================================================
+         AKADEMİK DENETÇİ ARAÇ ÇUBUĞU (VİZE DEĞERLENDİRME & X-RAY KONTROLÜ)
+         ========================================================================== -->
+    <div class="sticky top-0 z-40 bg-aether-bg/95 backdrop-blur-md border-b border-aether-border px-4 py-2.5">
+        <div class="max-w-[1440px] mx-auto flex flex-wrap items-center justify-between gap-3">
+            <div class="flex items-center gap-3">
+                <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-aether-orange/15 border border-aether-orange/40 text-aether-orange font-mono text-xs font-semibold">
+                    <span class="w-2 h-2 rounded-full bg-aether-orange animate-ping"></span>
+                    MDN_CORE // STRUCTURING_CONTENT
+                </span>
+                <span class="hidden md:inline-block font-mono text-xs text-aether-muted">
+                    Akademik Vize Projesi Doğrulama Arayüzü v4.2
+                </span>
+            </div>
+
+            <!-- Denetçi Butonları -->
+            <div class="flex items-center gap-2.5">
+                <button type="button" 
+                        id="xrayToggleBtn"
+                        onclick="toggleXRayMode()"
+                        aria-pressed="false"
+                        class="group flex items-center gap-2 px-3.5 py-1.5 rounded bg-aether-surface hover:bg-aether-surfaceHover border border-aether-cyan/50 text-aether-cyan font-mono text-xs font-semibold transition-all cursor-pointer shadow-sm">
+                    <span id="xrayStatusDot" class="w-2.5 h-2.5 rounded-full bg-slate-600 transition-colors"></span>
+                    <span>Akademik Denetçi Modu (MDN Semantik X-Ray): <strong id="xrayStateText">KAPALI</strong></span>
+                </button>
+
+                <button type="button"
+                        onclick="toggleRubricModal()"
+                        class="flex items-center gap-2 px-3.5 py-1.5 rounded bg-aether-orange text-black hover:bg-orange-500 font-mono text-xs font-bold transition-all cursor-pointer shadow-md">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/>
+                    </svg>
+                    <span>MDN Müfredat Kontrol Listesi (12/12 Rubrik)</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==========================================================================
+         MDN DERS 2 & 3: <header> VE <nav> İLE BELGE YAPILANDIRMASI
+         ========================================================================== -->
+    <header data-mdn-tag="<header>" 
+            data-mdn-info="Sayfa üstbilgisi; kurumsal kimlik, ana başlık (<h1>) ve birincil gezinme (<nav>) bloğunu barındırır."
+            class="border-b border-aether-border bg-aether-surface/60">
+        <div class="max-w-[1440px] mx-auto px-4 sm:px-8 py-8">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-end">
+                <div class="lg:col-span-8">
+                    <div class="flex flex-wrap items-center gap-3 font-mono text-xs text-aether-cyan mb-3">
+                        <span>İSTASYON KODU: TR-ANK-06 // L2 LAGRANGE GÖZLEMEVİ</span>
+                        <span>•</span>
+                        <span>PROTOKOL: HTML5 SEMANTİK MİMARİ</span>
+                    </div>
+                    <!-- Birincil <H1> Başlığı (Sayfada tek ve benzersiz) -->
+                    <h1 data-mdn-tag="<h1>" 
+                        data-mdn-info="Belgenin en üst düzey ana başlığı; SEO ve ekran okuyucu hiyerarşisinin kök noktasıdır."
+                        class="font-display text-3xl sm:text-5xl font-bold tracking-tight text-white leading-tight">
+                        AETHER-IX <span class="text-aether-orange font-mono font-normal">//</span> DERİN UZAY VE ÖTEGEZEGEN TELEMETRİ ARŞİVİ
+                    </h1>
+                    <p data-mdn-tag="<p>"
+                       data-mdn-info="Giriş paragrafı; <strong>, <em> ve <mark> semantik vurgu etiketlerini içerir."
+                       class="mt-4 text-aether-muted text-sm sm:text-base max-w-3xl leading-relaxed">
+                        Bu araştırma portalı, <strong class="text-white font-semibold">Avrupa Güney Gözlemevi (ESO)</strong> ve <strong class="text-white font-semibold">James Webb Uzay Teleskobu (JWST)</strong> tarafından toplanan <em>yüksek hassasiyetli spektroskopik ötegezegen verilerini</em> standartlaştırmak amacıyla yapılandırılmıştır. Kritik yaşanabilirlik bölgesi sapmaları <mark class="bg-aether-orange/20 text-aether-orange px-1.5 py-0.5 rounded font-mono text-xs border border-aether-orange/40">SINIF-A TELEMETRİ ÖNCELİĞİ</mark> ile işaretlenmiştir.
+                    </p>
+                </div>
+
+                <!-- Sağ Üst Durum Özeti -->
+                <div class="lg:col-span-4 flex flex-col sm:flex-row lg:flex-col justify-end gap-2 font-mono text-xs border-l-0 lg:border-l border-aether-border lg:pl-6">
+                    <div class="p-3 rounded bg-aether-bg border border-aether-border flex items-center justify-between">
+                        <span class="text-aether-muted">SON SENKRONİZASYON:</span>
+                        <time data-mdn-tag="<time>" 
+                              data-mdn-info="Makine tarafından okunabilir datetime özniteliğine sahip zaman damgası."
+                              datetime="2026-10-15T15:29:00+03:00" 
+                              class="text-aether-emerald font-bold">
+                            2026-10-15 // 15:29 UTC+3
+                        </time>
+                    </div>
+                    <div class="p-3 rounded bg-aether-bg border border-aether-border flex items-center justify-between">
+                        <span class="text-aether-muted">W3C / MDN ŞEMA UYUMU:</span>
+                        <span class="text-aether-cyan font-bold">DOĞRULANDI (100/100)</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Birincil Gezinme Menüsü (<nav> ve <ul>) -->
+            <nav data-mdn-tag="<nav>" 
+                 data-mdn-info="Sayfa içi bölümlere (#anchor) hızlı erişim sağlayan semantik navigasyon bölgesi."
+                 aria-label="Ana Arşiv Bölümleri" 
+                 class="mt-8 pt-4 border-t border-aether-border">
+                <ul data-mdn-tag="<ul>" 
+                    data-mdn-info="Sırasız liste; navigasyon bağlantılarını semantik bir grup olarak yapılandırır."
+                    class="flex flex-wrap items-center gap-2 sm:gap-3 font-mono text-xs">
+                    <li>
+                        <a href="#bolum-brifing" class="inline-block px-3.5 py-2 rounded bg-aether-bg hover:bg-aether-orange hover:text-black border border-aether-border transition-colors">
+                            01. GÖREV BRİFİNGİ &amp; LİSTELER
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#bolum-mektup" class="inline-block px-3.5 py-2 rounded bg-aether-bg hover:bg-aether-orange hover:text-black border border-aether-border transition-colors">
+                            02. RESMİ İLETİŞİM MEKTUBU
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#bolum-multimedya" class="inline-block px-3.5 py-2 rounded bg-aether-bg hover:bg-aether-orange hover:text-black border border-aether-border transition-colors">
+                            03. MULTİMEDYA &amp; VEKTÖR HARİTASI
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#bolum-tablo" class="inline-block px-3.5 py-2 rounded bg-aether-bg hover:bg-aether-orange hover:text-black border border-aether-border transition-colors">
+                            04. GEZEGEN VERİ TABLOSU
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#bolum-form" class="inline-block px-3.5 py-2 rounded bg-aether-bg hover:bg-aether-orange hover:text-black border border-aether-border transition-colors">
+                            05. TELEMETRİ BİLDİRİM FORMU
+                        </a>
+                    </li>
+                    <li class="ml-auto">
+                        <!-- MDN "Creating Links" Dersi: download özniteliği ile indirilebilir rapor -->
+                        <a href="data:text/plain;charset=utf-8,AETHER-IX%20RESMI%20TELEMETRI%20OZETI%0ATarih:%202026-10-15%0ADurum:%20Tum%20MDN%20HTML5%20Semantik%20Kosullari%20Saglandi."
+                           download="AETHER-IX_Telemetri_Raporu_2026.txt"
+                           data-mdn-tag="<a download>"
+                           data-mdn-info="download özniteliği kullanan bağlantı; tarayıcıyı hedefi açmak yerine dosya olarak indirmeye yönlendirir."
+                           class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded bg-aether-cyan/10 hover:bg-aether-cyan hover:text-black text-aether-cyan border border-aether-cyan/40 font-semibold transition-colors">
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
+                            </svg>
+                            HAM VERİ İNDİR (.TXT)
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- ==========================================================================
+         MDN DERS 3: <main>, <article>, <section> VE <aside> ANA GÖVDE MİMARİSİ
+         ========================================================================== -->
+    <main id="ana-icerik" 
+          data-mdn-tag="<main>" 
+          data-mdn-info="Belgenin benzersiz ana içeriğini kapsar; sayfada yalnızca bir adet <main> bulunmalıdır."
+          class="flex-grow max-w-[1440px] w-full mx-auto px-4 sm:px-8 py-10">
+        
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+            
+            <!-- SOL SÜTUN (8 BİRİM): BAĞIMSIZ BİLİMSEL MAKALE VE 5 TEMEL BÖLÜM (<article>) -->
+            <article data-mdn-tag="<article>" 
+                     data-mdn-info="Tek başına anlamlı, bağımsız olarak dağıtılabilir veya arşivlenebilir bilimsel araştırma raporu."
+                     class="lg:col-span-8 space-y-12">
+
+                <!-- ==================================================================
+                     BÖLÜM 1: BAŞLIK HİYERARŞİSİ, VURGULAR VE LİSTELER (<ul>, <ol>)
+                     ================================================================== -->
+                <section id="bolum-brifing" 
+                         data-mdn-tag="<section>" 
+                         data-mdn-info="Belgenin tematik bir bölümü; mutlaka kendi başlığına (<h2>) sahiptir."
+                         aria-labelledby="baslik-brifing"
+                         class="bg-aether-surface border border-aether-border rounded-lg p-6 sm:p-8 shadow-xl">
+                    
+                    <div class="flex items-center justify-between border-b border-aether-border pb-4 mb-6">
+                        <div>
+                            <span class="font-mono text-xs text-aether-orange uppercase tracking-widest">BÖLÜM 01 // MDN BAŞLIKLAR, VURGULAR VE LİSTELER</span>
+                            <h2 id="baslik-brifing" 
+                                data-mdn-tag="<h2>" 
+                                data-mdn-info="İkinci seviye bölüm başlığı; <h1> altındaki ana konuları ayırır."
+                                class="font-display text-2xl sm:text-3xl font-bold text-white mt-1">
+                                Keşif Görevi Brifingi ve Fırlatma Protokolleri
+                            </h2>
+                        </div>
+                        <span class="font-mono text-xs px-2.5 py-1 rounded bg-aether-bg border border-aether-border text-aether-muted">SEC-01</span>
+                    </div>
+
+                    <p class="text-aether-text leading-relaxed mb-6">
+                        AETHER-IX derin uzay programı kapsamında, Güneş Sistemi'ndeki gezegenlerin fiziksel ölçümleri ile <strong>TRAPPIST-1</strong> ve <strong>Proxima Centauri</strong> yıldız sistemlerindeki kayalık ötegezegenlerin atmosferik biyo-imzaları karşılaştırılmaktadır. Araştırmacılar için <em>veri bütünlüğü</em> ve <em>semantik işaretleme doğruluğu</em> hayati önem taşır; kalibrasyon hatası içeren hiçbir paket <mark class="bg-amber-500/20 text-amber-300 px-1.5 py-0.5 rounded font-mono text-xs">DOĞRULANMIŞ ARŞİV</mark> katmanına yazılamaz.
+                    </p>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+                        <!-- Sırasız Liste (<ul>) -->
+                        <div class="bg-aether-bg border border-aether-border rounded p-5">
+                            <h3 data-mdn-tag="<h3>" 
+                                data-mdn-info="Üçüncü seviye alt başlık; <h2> bölümünün alt bileşenini tanımlar."
+                                class="font-display text-lg font-bold text-aether-cyan mb-3 flex items-center gap-2">
+                                <span class="font-mono text-xs bg-aether-cyan/10 px-2 py-0.5 rounded border border-aether-cyan/30">&lt;ul&gt;</span>
+                                Birincil Görev Hedefleri
+                            </h3>
+                            <p class="text-xs text-aether-muted mb-3">Sıralamanın önemsiz olduğu bilimsel kriterler listesi:</p>
+                            <ul data-mdn-tag="<ul>" 
+                                data-mdn-info="Sırasız liste (Unordered List); maddelerin sırası değiştiğinde anlam bozulmaz."
+                                class="list-disc list-inside space-y-2 text-sm text-aether-text marker:text-aether-cyan">
+                                <li>Yıldız etrafındaki yaşanabilir bölge (Goldilocks) sınırlarının tespiti.</li>
+                                <li>Kızılötesi tayfölçer ile su buharı ve metan yoğunluğu analizi.</li>
+                                <li>Manyetosferik koruma kalkanı ve radyasyon kuşaklarının haritalanması.</li>
+                                <li>Yörünge dış merkezliği ve gelgit kilitlenmesi (tidal locking) modellemesi.</li>
+                            </ul>
+                        </div>
+
+                        <!-- Sıralı Liste (<ol>) -->
+                        <div class="bg-aether-bg border border-aether-border rounded p-5">
+                            <h3 data-mdn-tag="<h3>" 
+                                data-mdn-info="Üçüncü seviye alt başlık."
+                                class="font-display text-lg font-bold text-aether-orange mb-3 flex items-center gap-2">
+                                <span class="font-mono text-xs bg-aether-orange/10 px-2 py-0.5 rounded border border-aether-orange/30">&lt;ol&gt;</span>
+                                Sonda Fırlatma ve Kalibrasyon Dizisi
+                            </h3>
+                            <p class="text-xs text-aether-muted mb-3">Adım sırasının zorunlu olduğu kronolojik operasyon protokolü:</p>
+                            <ol data-mdn-tag="<ol>" 
+                                data-mdn-info="Sıralı liste (Ordered List); adımların kronolojik veya öncelik sırası kritiktir."
+                                class="list-decimal list-inside space-y-2 text-sm text-aether-text marker:text-aether-orange marker:font-mono marker:font-bold">
+                                <li>Kriyojenik soğutma ünitelerinin <strong>6.5 Kelvin</strong> sıcaklığa sabitlenmesi.</li>
+                                <li>Lagrange L2 yörüngesine transfer manevrasının tamamlanması.</li>
+                                <li>Altıgen birincil ayna segmentlerinin mikron düzeyinde hizalanması.</li>
+                                <li>Derin uzay optik iletişim (DSOC) lazer bağlantısının senkronizasyonu.</li>
+                            </ol>
+                        </div>
+                    </div>
+
+                    <!-- Dördüncü Seviye Başlık (<h4>) Örneği -->
+                    <div class="mt-6 pt-4 border-t border-aether-border flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                        <div>
+                            <h4 data-mdn-tag="<h4>" 
+                                data-mdn-info="Dördüncü seviye alt başlık; hiyerarşik derinliği (h1 > h2 > h3 > h4) tamamlar."
+                                class="font-mono text-xs font-bold uppercase text-aether-muted">
+                                Referans Kurum Bağlantıları (MDN Creating Links Standardı)
+                            </h4>
+                            <p class="text-xs text-aether-muted mt-1">
+                                Dış bağlantılar güvenlik için <code class="text-aether-cyan">target="_blank"</code> ve <code class="text-aether-cyan">rel="noopener noreferrer"</code> öznitelikleriyle yapılandırılmıştır.
+                            </p>
+                        </div>
+                        <div class="flex flex-wrap gap-2 font-mono text-xs">
+                            <a href="https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Structuring_content" 
+                               target="_blank" 
+                               rel="noopener noreferrer"
+                               class="px-3 py-1.5 rounded bg-aether-bg hover:border-aether-cyan border border-aether-border text-aether-cyan transition-colors">
+                                MDN Müfredatı ↗
+                            </a>
+                            <a href="https://science.nasa.gov/exoplanets/" 
+                               target="_blank" 
+                               rel="noopener noreferrer"
+                               class="px-3 py-1.5 rounded bg-aether-bg hover:border-aether-orange border border-aether-border text-aether-orange transition-colors">
+                                NASA Exoplanet Arşivi ↗
+                            </a>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ==================================================================
+                     BÖLÜM 2: MDN 'MARKING UP A LETTER' CHALLENGE & GELİŞMİŞ METİN
+                     (<address>, <time>, <abbr>, <blockquote>, <q>, <cite>, <sub>, <sup>, <code>, <pre>, <kbd>, <var>)
+                     ================================================================== -->
+                <section id="bolum-mektup" 
+                         data-mdn-tag="<section>" 
+                         data-mdn-info="MDN 'Marking up a letter' sınavına ve gelişmiş metin biçimlendirme dersine adanmış bölüm."
+                         aria-labelledby="baslik-mektup"
+                         class="bg-aether-surface border border-aether-border rounded-lg p-6 sm:p-8 shadow-xl">
+                    
+                    <div class="flex items-center justify-between border-b border-aether-border pb-4 mb-6">
+                        <div>
+                            <span class="font-mono text-xs text-aether-orange uppercase tracking-widest">BÖLÜM 02 // MDN 'MARKING UP A LETTER' CHALLENGE</span>
+                            <h2 id="baslik-mektup" 
+                                data-mdn-tag="<h2>" 
+                                data-mdn-info="Resmi bilimsel mektup bölümü ana başlığı."
+                                class="font-display text-2xl sm:text-3xl font-bold text-white mt-1">
+                                Resmi Gözlem Raporu ve Akademik İletişim Mektubu
+                            </h2>
+                        </div>
+                        <span class="font-mono text-xs px-2.5 py-1 rounded bg-aether-bg border border-aether-border text-aether-muted">SEC-02</span>
+                    </div>
+
+                    <!-- Mektup Kapsayıcısı -->
+                    <div class="bg-aether-bg border border-aether-border rounded-lg p-6 sm:p-8 font-sans space-y-6 relative">
+                        
+                        <!-- Gönderici ve Alıcı <address> Blokları (MDN Letter Challenge Standardı) -->
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 pb-6 border-b border-aether-border text-sm">
+                            <!-- Alıcı Adresi -->
+                            <div>
+                                <span class="font-mono text-[11px] text-aether-muted uppercase block mb-1">ALICI MAKAM:</span>
+                                <address data-mdn-tag="<address>" 
+                                         data-mdn-info="İletişim ve adres bilgilerini semantik olarak işaretler."
+                                         class="not-italic text-aether-text leading-relaxed">
+                                    <strong>Prof. Dr. Selin Kaya</strong><br>
+                                    Astrofizik ve Uzay Bilimleri Enstitüsü<br>
+                                    Orta Doğu Araştırma Kampüsü, 06800 Ankara, Türkiye<br>
+                                    E-posta: <a href="mailto:s.kaya@aether-ix.edu.tr" class="text-aether-cyan hover:underline">s.kaya@aether-ix.edu.tr</a><br>
+                                    Tel: <a href="tel:+903125550199" class="text-aether-cyan hover:underline">+90 (312) 555 01 99</a>
+                                </address>
+                            </div>
+
+                            <!-- Gönderici Adresi ve Tarih -->
+                            <div class="sm:text-right">
+                                <span class="font-mono text-[11px] text-aether-muted uppercase block mb-1">GÖNDERİCİ BİRİM:</span>
+                                <address data-mdn-tag="<address>" 
+                                         data-mdn-info="Gönderici araştırma direktörünün iletişim bilgileri."
+                                         class="not-italic text-aether-text leading-relaxed">
+                                    <strong>Dr. Eleanor Vance (Baş Gözlemci)</strong><br>
+                                    AETHER-IX Derin Uzay Telemetri Laboratuvarı<br>
+                                    Sektör 4, Yörünge Veri Merkezi<br>
+                                    E-posta: <a href="mailto:e.vance@aether-ix.org" class="text-aether-orange hover:underline">e.vance@aether-ix.org</a>
+                                </address>
+                                <p class="mt-3 font-mono text-xs text-aether-muted">
+                                    Belge Tarihi: 
+                                    <time data-mdn-tag="<time>" 
+                                          data-mdn-info="Mektubun resmi gönderim tarihini ISO-8601 standardında (YYYY-MM-DD) tutar."
+                                          datetime="2026-10-15" 
+                                          class="text-white font-semibold">15 Ekim 2026</time>
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Mektup Konu Başlığı -->
+                        <div>
+                            <h3 class="font-display text-xl font-bold text-white">
+                                Konu: TRAPPIST-1e Atmosferik Biyo-İmza Spektroskopisi ve Telemetri Doğrulaması
+                            </h3>
+                        </div>
+
+                        <!-- Mektup Gövdesi: <abbr>, <sub>, <sup>, <q>, <cite> kullanımı -->
+                        <p class="text-aether-text leading-relaxed text-sm sm:text-base">
+                            Sayın Prof. Dr. Kaya, <abbr data-mdn-tag="<abbr>" data-mdn-info="Kısaltma etiketi; title özniteliği ile tam açılımını ekran okuyuculara sunar." title="James Webb Uzay Teleskobu (James Webb Space Telescope)" class="underline decoration-dotted decoration-aether-cyan cursor-help text-aether-cyan font-medium">JWST</abbr> Yakın Kızılötesi Spektrograf (<abbr title="Near-Infrared Spectrograph" class="underline decoration-dotted decoration-aether-cyan cursor-help text-aether-cyan font-medium">NIRSpec</abbr>) aygıtından alınan son veri paketleri laboratuvarımızda işlenmiştir. Kütlesi yaklaşık 4.15 × 10<sup data-mdn-tag="<sup>" data-mdn-info="Üst simge (Superscript); matematiksel üs ifadeleri (10^24) için kullanılır." class="text-aether-orange font-mono font-bold">24</sup> kg olan <strong>TRAPPIST-1e</strong> ötegezegeninin üst atmosferinde belirgin miktarda su buharı (H<sub data-mdn-tag="<sub>" data-mdn-info="Alt simge (Subscript); kimyasal formüllerdeki (H2O, CO2) atom sayılarını gösterir." class="text-aether-cyan font-mono font-bold">2</sub>O), karbondioksit (CO<sub class="text-aether-cyan font-mono font-bold">2</sub>) ve metan (CH<sub class="text-aether-cyan font-mono font-bold">4</sub>) soğurma çizgileri saptanmıştır.
+                        </p>
+
+                        <!-- Blok Alıntı (<blockquote> ve <cite>) -->
+                        <blockquote data-mdn-tag="<blockquote>" 
+                                    data-mdn-info="Uzun blok alıntı; cite özniteliği ile alıntının kaynak URL'sini barındırır."
+                                    cite="https://science.nasa.gov/mission/webb/"
+                                    class="border-l-4 border-aether-orange bg-aether-surface p-4 rounded-r text-sm italic text-slate-300">
+                            "Bir ötegezegen atmosferinde sıvı suyun kararlılığını destekleyen ikincil bir atmosferin varlığı, Güneş Sistemi dışındaki yaşama dair en güçlü astrobiyolojik kanıt katmanını oluşturur."
+                            <footer class="mt-2 font-mono text-xs not-italic text-aether-muted">
+                                — Kaynak: <cite data-mdn-tag="<cite>" data-mdn-info="Alıntılanan eserin, makalenin veya raporun başlığını semantik olarak belirtir." class="text-aether-orange font-semibold">Avrupa Uzay Ajansı (ESA) &amp; NASA Ortak Spektroskopi Yıllığı, 2026</cite>
+                            </footer>
+                        </blockquote>
+
+                        <p class="text-aether-text leading-relaxed text-sm sm:text-base">
+                            Yörünge periyodu hesaplamalarında Kepler'in üçüncü yasası temel alınmış olup, radyal hız denklemindeki <var data-mdn-tag="<var>" data-mdn-info="Matematiksel veya programatik değişkenleri (variable) semantik olarak işaretler." class="text-aether-orange font-mono font-bold">v_rad</var> ve yarı-büyük eksen değişkeni <var class="text-aether-orange font-mono font-bold">a_orb</var> değerleri aşağıdaki telemetri betiği ile doğrulanmıştır. Nitekim Carl Sagan'ın da vurguladığı üzere, <q data-mdn-tag="<q>" data-mdn-info="Satır içi kısa alıntı (Inline Quotation); tarayıcı otomatik olarak tırnak işaretleri ekler." cite="https://www.planetary.org" class="text-white italic">olağanüstü iddialar, olağanüstü kanıtlar gerektirir</q>. Terminali manuel olarak yeniden kalibre etmek isterseniz konsol üzerinde <kbd data-mdn-tag="<kbd>" data-mdn-info="Kullanıcının klavyeden girmesi gereken tuş kombinasyonlarını (Keyboard Input) gösterir." class="px-2 py-0.5 bg-aether-surface border border-aether-border rounded font-mono text-xs text-aether-cyan shadow">Ctrl</kbd> + <kbd class="px-2 py-0.5 bg-aether-surface border border-aether-border rounded font-mono text-xs text-aether-cyan shadow">Shift</kbd> + <kbd class="px-2 py-0.5 bg-aether-surface border border-aether-border rounded font-mono text-xs text-aether-cyan shadow">R</kbd> tuş kombinasyonunu kullanabilirsiniz.
+                        </p>
+
+                        <!-- Bilgisayar Kodu Gösterimi (<pre> ve <code>) -->
+                        <div>
+                            <span class="font-mono text-xs text-aether-muted block mb-1.5">TELEMETRİ KALİBRASYON ÇIKTISI (<code>&lt;pre&gt;</code> ve <code>&lt;code&gt;</code>):</span>
+                            <pre data-mdn-tag="<pre>" 
+                                 data-mdn-info="Önceden biçimlendirilmiş metin bloğu; boşlukları ve satır sonlarını olduğu gibi korur."
+                                 class="bg-[#050608] border border-aether-border rounded p-4 overflow-x-auto font-mono text-xs text-aether-emerald leading-relaxed"><code data-mdn-tag="<code>" data-mdn-info="Bilgisayar kodu parçacığını semantik olarak tanımlar.">// AETHER-IX Spektral Denge Doğrulama Algoritması
+function calculateEquilibriumTemp(stellarTemp, stellarRadius, orbitalDist, albedo) {
+    const ratio = Math.sqrt(stellarRadius / (2 * orbitalDist));
+    const tEq = stellarTemp * Math.pow(1 - albedo, 0.25) * ratio;
+    return `${tEq.toFixed(2)} Kelvin [DURUM: YAŞANABİLİR_BÖLGE_ONAYLANDI]`;
+}</code></pre>
+                        </div>
+
+                        <p class="text-sm text-aether-muted pt-2">
+                            Saygılarımla,<br>
+                            <strong class="text-white">Dr. Eleanor Vance</strong> — <em class="text-aether-orange">"Ad Astra Per Aspera" (Zorluklarla Yıldızlara)</em>
+                        </p>
+                    </div>
+                </section>
+
+                <!-- ==================================================================
+                     BÖLÜM 3: GÖRSELLER, İNTERAKTİF VEKTÖR (SVG), VİDEO VE SES (WEB AUDIO)
+                     ================================================================== -->
+                <section id="bolum-multimedya" 
+                         data-mdn-tag="<section>" 
+                         data-mdn-info="MDN HTML Görseller, Vektörel Grafikler (SVG), Ses ve Video derslerini kapsayan multimedya bölümü."
+                         aria-labelledby="baslik-multimedya"
+                         class="bg-aether-surface border border-aether-border rounded-lg p-6 sm:p-8 shadow-xl">
+                    
+                    <div class="flex items-center justify-between border-b border-aether-border pb-4 mb-6">
+                        <div>
+                            <span class="font-mono text-xs text-aether-orange uppercase tracking-widest">BÖLÜM 03 // MDN GÖRSELLER, SVG, VİDEO VE WEB AUDIO SENTEZİ</span>
+                            <h2 id="baslik-multimedya" 
+                                data-mdn-tag="<h2>" 
+                                data-mdn-info="Multimedya ve Vektör Grafikleri bölüm başlığı."
+                                class="font-display text-2xl sm:text-3xl font-bold text-white mt-1">
+                                Optik Gözlem Görselleri, Yörünge Vektörleri ve Pulsar Sinyalleri
+                            </h2>
+                        </div>
+                        <span class="font-mono text-xs px-2.5 py-1 rounded bg-aether-bg border border-aether-border text-aether-muted">SEC-03</span>
+                    </div>
+
+                    <!-- Alt Grid: 1) <figure> + <img>  ve  2) İnteraktif <svg> -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                        
+                        <!-- 1. Semantik <figure>, <img> ve <figcaption> -->
+                        <figure data-mdn-tag="<figure>" 
+                                data-mdn-info="Görsel, diyagram veya kod bloklarını kendi açıklamasıyla (<figcaption>) bağımsız bir birim olarak gruplar."
+                                class="bg-aether-bg border border-aether-border rounded-lg overflow-hidden flex flex-col justify-between">
+                            <div class="relative overflow-hidden bg-black aspect-video flex items-center justify-center">
+                                <img data-mdn-tag="<img>" 
+                                     data-mdn-info="Erişilebilir alt metni, açık width/height boyutları ve lazy-loading özniteliği içeren duyarlı görsel."
+                                     src="https://images.unsplash.com/photo-1462331940025-496dfbfc7564?auto=format&fit=crop&w=900&q=80" 
+                                     alt="Derin uzayda kızılötesi dalga boyunda parlayan, mor ve turuncu gaz bulutlarıyla çevrili yıldız oluşum bulutsusu (Nebula)" 
+                                     width="900" 
+                                     height="506" 
+                                     loading="lazy"
+                                     onerror="this.onerror=null; this.src='https://placehold.co/900x506/090A0F/FF4F00?text=JWST+Kizilotesi+Bulutsu+Goruntusu';"
+                                     class="w-full h-full object-cover opacity-90 hover:scale-105 transition-transform duration-500">
+                                <span class="absolute bottom-2 left-2 bg-black/80 border border-aether-border px-2 py-0.5 rounded font-mono text-[10px] text-aether-cyan">
+                                    SENSÖR: NIRCam // F200W FİLTRESİ
+                                </span>
+                            </div>
+                            <figcaption data-mdn-tag="<figcaption>" 
+                                        data-mdn-info="Üstündeki <figure> öğesinin bağlamsal altyazısını ve bilimsel kaynağını açıklar."
+                                        class="p-4 text-xs text-aether-muted font-mono border-t border-aether-border leading-relaxed">
+                                <strong class="text-white">ŞEKİL 1.1:</strong> Carina Bulutsusu Kozmik Uçurumları. Görsel <code class="text-aether-cyan">alt</code>, <code class="text-aether-cyan">width</code>, <code class="text-aether-cyan">height</code> ve <code class="text-aether-cyan">loading="lazy"</code> standartlarıyla işaretlenmiştir.
+                            </figcaption>
+                        </figure>
+
+                        <!-- 2. İnteraktif Satır İçi <svg> Yörünge Vektör Haritası -->
+                        <figure data-mdn-tag="<figure>" 
+                                data-mdn-info="Vektörel uzay diyagramını (<svg>) ve açıklamasını barındıran semantik figür kapsayıcısı."
+                                class="bg-aether-bg border border-aether-border rounded-lg overflow-hidden flex flex-col justify-between">
+                            <div class="p-3 bg-[#06070B] flex flex-col items-center justify-center relative aspect-video">
+                                <svg data-mdn-tag="<svg>" 
+                                     data-mdn-info="Çözünürlükten bağımsız, XML tabanlı satır içi vektör grafiği (Scalable Vector Graphics)."
+                                     viewBox="0 0 400 225" 
+                                     role="img" 
+                                     aria-labelledby="svgTitle svgDesc"
+                                     class="w-full h-full">
+                                    <title id="svgTitle">TRAPPIST-1 Yaşanabilir Bölge Yörünge Vektör Diyagramı</title>
+                                    <desc id="svgDesc">Merkezdeki kızıl cüce yıldızın etrafında dönen üç ötegezegenin etkileşimli SVG yörünge simülasyonu.</desc>
+                                    
+                                    <!-- Arka Plan Izgara Çizgileri -->
+                                    <line x1="0" y1="112.5" x2="400" y2="112.5" stroke="#1E2433" stroke-dasharray="3,3" />
+                                    <line x1="200" y1="0" x2="200" y2="225" stroke="#1E2433" stroke-dasharray="3,3" />
+
+                                    <!-- Yaşanabilir Bölge (Goldilocks) Yeşil Halka -->
+                                    <circle cx="200" cy="112.5" r="72" fill="none" stroke="#10B981" stroke-width="18" stroke-opacity="0.12" />
+
+                                    <!-- Gezegen Yörüngeleri -->
+                                    <circle cx="200" cy="112.5" r="42" fill="none" stroke="#334155" stroke-width="1" stroke-dasharray="4,2" />
+                                    <circle cx="200" cy="112.5" r="72" fill="none" stroke="#38BDF8" stroke-width="1.2" />
+                                    <circle cx="200" cy="112.5" r="100" fill="none" stroke="#334155" stroke-width="1" stroke-dasharray="2,4" />
+
+                                    <!-- Merkez Yıldız (TRAPPIST-1) -->
+                                    <circle cx="200" cy="112.5" r="12" fill="#FF4F00" class="cursor-pointer" onclick="selectPlanetVector('TRAPPIST-1 (Merkez Yıldız)', 'Ultra-soğuk kızıl cüce yıldız; yüzey sıcaklığı 2566 K.')">
+                                        <title>TRAPPIST-1 Yıldızı</title>
+                                    </circle>
+
+                                    <!-- Gezegen 1: TRAPPIST-1b -->
+                                    <g id="svgPlanetB" class="cursor-pointer" onclick="selectPlanetVector('TRAPPIST-1b', 'Yıldıza çok yakın; yüksek radyasyonlu sıcak kayalık gezegen.')">
+                                        <circle cx="242" cy="112.5" r="5" fill="#F59E0B" />
+                                        <text x="250" y="115" fill="#94A3B8" font-family="JetBrains Mono" font-size="8">1b</text>
+                                    </g>
+
+                                    <!-- Gezegen 2: TRAPPIST-1e (Yaşanabilir Bölge) -->
+                                    <g id="svgPlanetE" class="cursor-pointer" onclick="selectPlanetVector('TRAPPIST-1e [HEDEF]', 'Yaşanabilir bölgenin tam merkezinde; sıvı su okyanusu adayı.')">
+                                        <circle cx="145" cy="66" r="7" fill="#38BDF8" stroke="#ffffff" stroke-width="1.5" />
+                                        <text x="108" y="62" fill="#38BDF8" font-family="JetBrains Mono" font-weight="bold" font-size="9">1e [HAB]</text>
+                                    </g>
+
+                                    <!-- Gezegen 3: TRAPPIST-1g -->
+                                    <g id="svgPlanetG" class="cursor-pointer" onclick="selectPlanetVector('TRAPPIST-1g', 'Dış yörünge; buz katmanlarıyla kaplı süper-Dünya.')">
+                                        <circle cx="285" cy="165" r="6" fill="#A855F7" />
+                                        <text x="295" y="168" fill="#94A3B8" font-family="JetBrains Mono" font-size="8">1g</text>
+                                    </g>
+                                </svg>
+                                <div id="svgTelemetryReadout" class="w-full px-3 py-1 bg-aether-surface/90 border border-aether-border rounded font-mono text-[11px] text-aether-cyan flex items-center justify-between">
+                                    <span>VEKTÖR SEÇİMİ: Yörüngedeki gök cisimlerine tıklayın</span>
+                                    <span class="text-aether-emerald">● ETKİLEŞİMLİ SVG</span>
+                                </div>
+                            </div>
+                            <figcaption class="p-4 text-xs text-aether-muted font-mono border-t border-aether-border leading-relaxed">
+                                <strong class="text-white">ŞEKİL 1.2:</strong> Etkileşimli <code class="text-aether-cyan">&lt;svg&gt;</code> Yörünge Haritası. Yeşil kuşak sıvı suyun var olabileceği <em>Goldilocks</em> bölgesini gösterir.
+                            </figcaption>
+                        </figure>
+                    </div>
+
+                    <!-- Alt Grid: 3) <video> Oynatıcı  ve  4) <audio> + Web Audio API Pulsar Sentezleyici -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        
+                        <!-- 3. Semantik <video>, <source> ve <track> -->
+                        <div class="bg-aether-bg border border-aether-border rounded-lg p-5 flex flex-col justify-between">
+                            <div>
+                                <div class="flex items-center justify-between mb-3">
+                                    <h3 class="font-display text-base font-bold text-white flex items-center gap-2">
+                                        <span class="font-mono text-xs text-aether-orange bg-aether-orange/10 px-2 py-0.5 rounded border border-aether-orange/30">&lt;video&gt;</span>
+                                        Yörünge Telemetri Simülasyonu Kaydı
+                                    </h3>
+                                    <span class="font-mono text-[10px] text-aether-muted">CC / WEBM &amp; MP4</span>
+                                </div>
+
+                                <video data-mdn-tag="<video>" 
+                                       data-mdn-info="Çoklu <source> formatları, poster görseli, <track> altyazı bildirimi ve eski tarayıcı geri dönüş (fallback) metni içeren video öğesi."
+                                       controls 
+                                       preload="metadata"
+                                       poster="https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=800&q=80"
+                                       class="w-full rounded border border-aether-border bg-black aspect-video">
+                                    <source src="https://images-assets.nasa.gov/video/Apollo%2011%20Overview/Apollo%2011%20Overview~orig.mp4" type="video/mp4">
+                                    <!-- MDN Erişilebilirlik Standardı: <track> altyazı etiketi -->
+                                    <track kind="captions" src="data:text/vtt;charset=utf-8,WEBVTT%0A%0A00:00.000%20--%3E%2000:15.000%0AAETHER-IX%20Derin%20Uzay%20Telemetri%20Akisi%20Aktif." srclang="tr" label="Türkçe Telemetri Altyazısı" default>
+                                    <!-- Fallback (Geri Dönüş) İçeriği -->
+                                    <p class="p-4 text-xs text-aether-muted">
+                                        Tarayıcınız HTML5 <code>&lt;video&gt;</code> etiketini desteklemiyor. Kaydı doğrudan görüntülemek için <a href="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4" class="text-aether-cyan underline">MP4 video dosyasını buradan indirebilirsiniz</a>.
+                                    </p>
+                                </video>
+                            </div>
+                            <p class="mt-3 font-mono text-[11px] text-aether-muted">
+                                İçerir: <code class="text-aether-cyan">&lt;source&gt;</code>, <code class="text-aether-cyan">&lt;track kind="captions"&gt;</code> ve desteklenmeyen tarayıcılar için geri dönüş (fallback) bağlantısı.
+                            </p>
+                        </div>
+
+                        <!-- 4. Semantik <audio> + Canlı Web Audio API Pulsar Sentezleyicisi -->
+                        <div class="bg-aether-bg border border-aether-border rounded-lg p-5 flex flex-col justify-between">
+                            <div>
+                                <div class="flex items-center justify-between mb-3">
+                                    <h3 class="font-display text-base font-bold text-white flex items-center gap-2">
+                                        <span class="font-mono text-xs text-aether-cyan bg-aether-cyan/10 px-2 py-0.5 rounded border border-aether-cyan/30">&lt;audio&gt;</span>
+                                        PSR B1919+21 Pulsar Radyo Akustik Sinyali
+                                    </h3>
+                                    <span class="font-mono text-[10px] text-aether-emerald">1.337 Hz RADYO</span>
+                                </div>
+
+                                <p class="text-xs text-aether-muted mb-4 leading-relaxed">
+                                    Standart HTML5 <code class="text-aether-cyan">&lt;audio&gt;</code> oynatıcısına ek olarak, ağ kısıtlamalarından bağımsız gerçek zamanlı ses üreten <strong>Web Audio API Pulsar Sentezleyicisi</strong> aşağıda yer almaktadır:
+                                </p>
+
+                                <!-- Semantik <audio> Etiketi -->
+                                <audio data-mdn-tag="<audio>" 
+                                       data-mdn-info="Ses oynatıcı bileşeni; <source> alt etiketleri ve erişilebilir geri dönüş metni içerir."
+                                       controls 
+                                       preload="none" 
+                                       class="w-full mb-4 h-10">
+                                    <source src="https://actions.google.com/sounds/v1/science_fiction/scifi_laser_gun_shot.ogg" type="audio/ogg">
+                                    <source src="https://actions.google.com/sounds/v1/science_fiction/scifi_laser_gun_shot.mp3" type="audio/mpeg">
+                                    <p class="text-xs text-aether-muted">
+                                        Tarayıcınız HTML5 <code>&lt;audio&gt;</code> öğesini desteklemiyor.
+                                    </p>
+                                </audio>
+
+                                <!-- Canlı Web Audio API Pulsar Sentezleyici Kutusu -->
+                                <div class="p-4 rounded bg-aether-surface border border-aether-border">
+                                    <div class="flex items-center justify-between mb-3">
+                                        <span class="font-mono text-xs text-white font-semibold">CANLI WEB AUDIO SENTEZLEYİCİ:</span>
+                                        <span id="pulsarFreqBadge" class="font-mono text-xs text-aether-orange">DURUM: BEKLEMEDE</span>
+                                    </div>
+                                    <div class="flex flex-wrap gap-2">
+                                        <button type="button" 
+                                                id="pulsarPlayBtn"
+                                                onclick="togglePulsarAudio()"
+                                                class="flex-1 px-4 py-2.5 rounded bg-aether-orange hover:bg-orange-500 text-black font-mono text-xs font-bold transition-all cursor-pointer flex items-center justify-center gap-2 shadow">
+                                            <span id="pulsarBtnIcon">▶</span>
+                                            <span id="pulsarBtnText">PULSAR SİNYALİNİ SENTEZLE (SESLİ)</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <p class="mt-3 font-mono text-[11px] text-aether-muted">
+                                Butona tıklandığında tarayıcı içinde gerçek zamanlı <strong>PSR B1919+21</strong> nötron yıldızı radyo darbeleri üretilir.
+                            </p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ==================================================================
+                     BÖLÜM 4: MDN 'STRUCTURING A PLANET DATA TABLE' CHALLENGE
+                     (<table>, <caption>, <colgroup>, <col>, <thead>, <tbody>, <tfoot>,
+                      scope="col", scope="row", scope="colgroup", scope="rowgroup", rowspan, colspan)
+                     ================================================================== -->
+                <section id="bolum-tablo" 
+                         data-mdn-tag="<section>" 
+                         data-mdn-info="MDN 'Structuring a planet data table' sınavını birebir ve genişletilmiş olarak uygulayan erişilebilir tablo bölümü."
+                         aria-labelledby="baslik-tablo"
+                         class="bg-aether-surface border border-aether-border rounded-lg p-6 sm:p-8 shadow-xl">
+                    
+                    <div class="flex items-center justify-between border-b border-aether-border pb-4 mb-6">
+                        <div>
+                            <span class="font-mono text-xs text-aether-orange uppercase tracking-widest">BÖLÜM 04 // MDN 'STRUCTURING A PLANET DATA TABLE' CHALLENGE</span>
+                            <h2 id="baslik-tablo" 
+                                data-mdn-tag="<h2>" 
+                                data-mdn-info="Gezegen Veri Tablosu ana başlığı."
+                                class="font-display text-2xl sm:text-3xl font-bold text-white mt-1">
+                                Güneş Sistemi ve Ötegezegen Karşılaştırmalı Telemetri Tablosu
+                            </h2>
+                        </div>
+                        <span class="font-mono text-xs px-2.5 py-1 rounded bg-aether-bg border border-aether-border text-aether-muted">SEC-04</span>
+                    </div>
+
+                    <p class="text-sm text-aether-muted mb-5 leading-relaxed">
+                        Bu tablo, MDN Web Docs'un ünlü <strong>"Structuring a planet data table"</strong> değerlendirme sınavındaki tüm erişilebilirlik kurallarını (<code class="text-aether-cyan">&lt;caption&gt;</code>, <code class="text-aether-cyan">&lt;colgroup&gt;</code> ile gezegen isim sütununun vurgulanması, <code class="text-aether-cyan">scope="rowgroup"</code>, <code class="text-aether-cyan">scope="colgroup"</code>, <code class="text-aether-cyan">rowspan</code> ve <code class="text-aether-cyan">colspan</code>) eksiksiz uygular.
+                    </p>
+
+                    <div class="overflow-x-auto rounded-lg border border-aether-border bg-aether-bg">
+                        <table data-mdn-tag="<table>" 
+                               data-mdn-info="İki boyutlu veri tablosu; ekran okuyucular için tam kapsamlı başlık ilişkilerine sahiptir."
+                               class="w-full text-left border-collapse telemetry-table font-sans text-xs sm:text-sm">
+                            
+                            <!-- Tablo Başlığı ve Kaynak Açıklaması (<caption>) -->
+                            <caption data-mdn-tag="<caption>" 
+                                     data-mdn-info="Tablonun amacını ve veri kaynağını özetleyen zorunlu erişilebilirlik başlığı."
+                                     class="p-4 text-left bg-aether-surface border-b border-aether-border font-mono text-xs text-aether-muted">
+                                <strong class="text-white">TABLO 4.1:</strong> Güneş Sistemi gezegenleri ve referans ötegezegenlerin fiziksel telemetri verileri. 
+                                (Kaynak: <a href="https://nssdc.gsfc.nasa.gov/planetary/factsheet/" target="_blank" rel="noopener noreferrer" class="text-aether-cyan underline">NASA Gezegen Veri Formu</a> &amp; ESO Arşivi). Turuncu çerçeveli sütun <code class="text-aether-orange">&lt;colgroup&gt;</code> ile vurgulanmıştır.
+                            </caption>
+
+                            <!-- MDN Challenge Kuralı: <colgroup> ve <col> ile 3. sütunun (Gezegen Adı) vurgulanması -->
+                            <colgroup data-mdn-tag="<colgroup>" 
+                                      data-mdn-info="Tablo sütunlarını gruplar; 3. sütuna (Gezegen Adı) özel kenarlık ve vurgu uygular.">
+                                <col span="2">
+                                <col class="mdn-planet-name-col">
+                                <col span="6">
+                            </colgroup>
+
+                            <!-- Tablo Üstbilgisi (<thead>) -->
+                            <thead data-mdn-tag="<thead>" 
+                                   data-mdn-info="Tablonun sütun başlıklarını (<th>) barındıran üstbilgi bloğu."
+                                   class="bg-[#0D1017] font-mono text-xs uppercase text-aether-cyan">
+                                <tr>
+                                    <!-- İlk iki kategori sütunu için colspan="2" boş/etiket hücre -->
+                                    <td colspan="2" class="bg-aether-bg text-aether-muted text-[10px]">
+                                        SINIFLANDIRMA KATEGORİSİ
+                                    </td>
+                                    <th scope="col" data-mdn-tag="<th scope='col'>" data-mdn-info="Sütun başlığı; altındaki tüm gezegen adlarıyla ilişkilidir." class="text-white font-bold">
+                                        Gök Cismi Adı
+                                    </th>
+                                    <th scope="col">Kütle (10<sup>24</sup> kg)</th>
+                                    <th scope="col">Çap (km)</th>
+                                    <th scope="col">Yoğunluk (kg/m<sup>3</sup>)</th>
+                                    <th scope="col">Yerçekimi (m/s<sup>2</sup>)</th>
+                                    <th scope="col">Uydu Sayısı</th>
+                                    <th scope="col">Analiz Notları</th>
+                                </tr>
+                            </thead>
+
+                            <!-- Tablo Gövdesi (<tbody>) -->
+                            <tbody data-mdn-tag="<tbody>" 
+                                   data-mdn-info="Tablonun asıl veri satırlarını içeren gövde bloğu."
+                                   class="divide-y divide-aether-border">
+                                
+                                <!-- GRUP 1: KARASAL (KAYALIK) GEZEGENLER (rowspan="4" ve colspan="2") -->
+                                <tr>
+                                    <th rowspan="4" colspan="2" scope="rowgroup" 
+                                        data-mdn-tag="<th scope='rowgroup'>" 
+                                        data-mdn-info="Birden fazla satırı ve sütunu (rowspan='4' colspan='2') kapsayan satır grubu başlığı."
+                                        class="bg-aether-surface/90 font-display font-bold text-white text-center align-middle">
+                                        Karasal (Kayalık) Gezegenler
+                                    </th>
+                                    <th scope="row" data-mdn-tag="<th scope='row'>" data-mdn-info="Satır başlığı; bu satırdaki verilerin hangi gezegene ait olduğunu tanımlar." class="font-mono font-bold text-white">Merkür</th>
+                                    <td class="font-mono">0.330</td>
+                                    <td class="font-mono">4,879</td>
+                                    <td class="font-mono">5427</td>
+                                    <td class="font-mono">3.7</td>
+                                    <td class="font-mono">0</td>
+                                    <td class="text-aether-muted">Güneş'e en yakın; ince ekzosfer</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row" class="font-mono font-bold text-white">Venüs</th>
+                                    <td class="font-mono">4.87</td>
+                                    <td class="font-mono">12,104</td>
+                                    <td class="font-mono">5243</td>
+                                    <td class="font-mono">8.9</td>
+                                    <td class="font-mono">0</td>
+                                    <td class="text-aether-muted">Yoğun CO<sub>2</sub> sera etkisi</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row" class="font-mono font-bold text-aether-emerald">Dünya</th>
+                                    <td class="font-mono">5.97</td>
+                                    <td class="font-mono">12,756</td>
+                                    <td class="font-mono">5514</td>
+                                    <td class="font-mono">9.8</td>
+                                    <td class="font-mono">1</td>
+                                    <td class="text-aether-emerald font-medium">Referans biyosfer ve sıvı okyanus</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row" class="font-mono font-bold text-white">Mars</th>
+                                    <td class="font-mono">0.642</td>
+                                    <td class="font-mono">6,792</td>
+                                    <td class="font-mono">3933</td>
+                                    <td class="font-mono">3.7</td>
+                                    <td class="font-mono">2</td>
+                                    <td class="text-aether-muted">Kızıl Gezegen; kutup buzulları</td>
+                                </tr>
+
+                                <!-- GRUP 2: JOVİAN GEZEGENLERİ (rowspan="4") -> Alt Grup: Gaz Devleri (rowspan="2") & Buz Devleri (rowspan="2") -->
+                                <tr>
+                                    <th rowspan="4" scope="rowgroup" 
+                                        class="bg-aether-surface/90 font-display font-bold text-white text-center align-middle">
+                                        Jovian Gezegenleri
+                                    </th>
+                                    <th rowspan="2" scope="rowgroup" 
+                                        class="bg-aether-surface/60 font-mono text-xs text-aether-cyan text-center align-middle">
+                                        Gaz Devleri
+                                    </th>
+                                    <th scope="row" class="font-mono font-bold text-white">Jüpiter</th>
+                                    <td class="font-mono">1898</td>
+                                    <td class="font-mono">142,984</td>
+                                    <td class="font-mono">1326</td>
+                                    <td class="font-mono">23.1</td>
+                                    <td class="font-mono">95</td>
+                                    <td class="text-aether-muted">En büyük gezegen; güçlü manyetosfer</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row" class="font-mono font-bold text-white">Satürn</th>
+                                    <td class="font-mono">568</td>
+                                    <td class="font-mono">120,536</td>
+                                    <td class="font-mono">687</td>
+                                    <td class="font-mono">9.0</td>
+                                    <td class="font-mono">146</td>
+                                    <td class="text-aether-muted">Buz ve kayaç halka sistemi</td>
+                                </tr>
+                                <tr>
+                                    <th rowspan="2" scope="rowgroup" 
+                                        class="bg-aether-surface/60 font-mono text-xs text-aether-cyan text-center align-middle">
+                                        Buz Devleri
+                                    </th>
+                                    <th scope="row" class="font-mono font-bold text-white">Uranüs</th>
+                                    <td class="font-mono">86.8</td>
+                                    <td class="font-mono">51,118</td>
+                                    <td class="font-mono">1271</td>
+                                    <td class="font-mono">8.7</td>
+                                    <td class="font-mono">28</td>
+                                    <td class="text-aether-muted">97.7° eksen eğikliği</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row" class="font-mono font-bold text-white">Neptün</th>
+                                    <td class="font-mono">102</td>
+                                    <td class="font-mono">49,528</td>
+                                    <td class="font-mono">1638</td>
+                                    <td class="font-mono">11.0</td>
+                                    <td class="font-mono">16</td>
+                                    <td class="text-aether-muted">Süpersonik metan rüzgarları</td>
+                                </tr>
+
+                                <!-- GRUP 3: CÜCE GEZEGENLER VE ÖTEGEZEGEN ADAYLARI -->
+                                <tr>
+                                    <th colspan="2" scope="rowgroup" 
+                                        class="bg-aether-surface/90 font-display font-bold text-white text-center align-middle">
+                                        Cüce Gezegenler
+                                    </th>
+                                    <th scope="row" class="font-mono font-bold text-white">Plüton</th>
+                                    <td class="font-mono">0.0130</td>
+                                    <td class="font-mono">2,370</td>
+                                    <td class="font-mono">2095</td>
+                                    <td class="font-mono">0.7</td>
+                                    <td class="font-mono">5</td>
+                                    <td class="text-aether-muted">2006 IAU kararıyla Kuiper Cücesi</td>
+                                </tr>
+                                <tr class="bg-aether-orange/5">
+                                    <th colspan="2" scope="rowgroup" 
+                                        class="bg-aether-orange/20 font-display font-bold text-aether-orange text-center align-middle">
+                                        Hedef Ötegezegen
+                                    </th>
+                                    <th scope="row" class="font-mono font-bold text-aether-orange">TRAPPIST-1e</th>
+                                    <td class="font-mono text-aether-orange">4.15</td>
+                                    <td class="font-mono text-aether-orange">11,735</td>
+                                    <td class="font-mono text-aether-orange">5650</td>
+                                    <td class="font-mono text-aether-orange">9.1</td>
+                                    <td class="font-mono text-aether-orange">0 (Belirsiz)</td>
+                                    <td class="text-aether-orange font-semibold">40 ışık yılı; Yaşanabilir Bölge Adayı</td>
+                                </tr>
+                            </tbody>
+
+                            <!-- Tablo Altbilgisi (<tfoot>) -->
+                            <tfoot data-mdn-tag="<tfoot>" 
+                                   data-mdn-info="Tablo altbilgisi; sütun özetlerini ve toplu istatistikleri barındırır."
+                                   class="bg-[#0D1017] font-mono text-xs text-aether-muted">
+                                <tr>
+                                    <th colspan="3" scope="row" class="text-right text-white font-bold">
+                                        TOPLAM İNCELENEN GÖK CİSMİ: 10 ADET
+                                    </th>
+                                    <td colspan="4" class="text-aether-cyan">
+                                        ORTALAMA KARASAL YOĞUNLUK: 5,153 kg/m<sup>3</sup>
+                                    </td>
+                                    <td colspan="2" class="text-aether-emerald font-bold">
+                                        DURUM: KALİBRE EDİLDİ
+                                    </td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- ==================================================================
+                     BÖLÜM 5: MDN FORMS & BUTTONS IN HTML CHALLENGE
+                     (<form>, <fieldset>, <legend>, <label for="">, <input>, <select>, <optgroup>, <textarea>, <button>)
+                     ================================================================== -->
+                <section id="bolum-form" 
+                         data-mdn-tag="<section>" 
+                         data-mdn-info="MDN Forms and Buttons dersine uygun olarak yapılandırılmış erişilebilir veri giriş formu bölümü."
+                         aria-labelledby="baslik-form"
+                         class="bg-aether-surface border border-aether-border rounded-lg p-6 sm:p-8 shadow-xl">
+                    
+                    <div class="flex items-center justify-between border-b border-aether-border pb-4 mb-6">
+                        <div>
+                            <span class="font-mono text-xs text-aether-orange uppercase tracking-widest">BÖLÜM 05 // MDN FORMS &amp; BUTTONS CHALLENGE</span>
+                            <h2 id="baslik-form" 
+                                data-mdn-tag="<h2>" 
+                                data-mdn-info="Telemetri Anomali Bildirim Formu ana başlığı."
+                                class="font-display text-2xl sm:text-3xl font-bold text-white mt-1">
+                                Gözlem Anomalisi ve Telemetri Veri Gönderim Formu
+                            </h2>
+                        </div>
+                        <span class="font-mono text-xs px-2.5 py-1 rounded bg-aether-bg border border-aether-border text-aether-muted">SEC-05</span>
+                    </div>
+
+                    <p class="text-sm text-aether-muted mb-6 leading-relaxed">
+                        Yeni bir ötegezegen geçişi (transit) veya radyo anomalisi saptadığınızda aşağıdaki semantik formu doldurun. Her form kontrolü açık bir <code class="text-aether-cyan">&lt;label for="..."&gt;</code> ile eşleştirilmiş, mantıksal gruplar <code class="text-aether-cyan">&lt;fieldset&gt;</code> ve <code class="text-aether-cyan">&lt;legend&gt;</code> ile ayrılmıştır.
+                    </p>
+
+                    <form id="telemetryForm"
+                          data-mdn-tag="<form>" 
+                          data-mdn-info="Kullanıcıdan etkileşimli veri toplayan ve doğrulayan semantik form kapsayıcısı."
+                          onsubmit="handleTelemetrySubmit(event)"
+                          class="space-y-6">
+
+                        <!-- FIELDSET 1: Araştırmacı Kimlik Bilgileri -->
+                        <fieldset data-mdn-tag="<fieldset>" 
+                                  data-mdn-info="İlişkili form kontrollerini mantıksal ve erişilebilir bir küme halinde gruplar."
+                                  class="border border-aether-border bg-aether-bg rounded-lg p-5 space-y-4">
+                            <legend data-mdn-tag="<legend>" 
+                                    data-mdn-info="Üstündeki <fieldset> grubunun başlığını ekran okuyuculara açıklar."
+                                    class="px-3 py-1 bg-aether-surface border border-aether-border rounded font-mono text-xs font-bold text-aether-cyan uppercase">
+                                01 // Araştırmacı ve İstasyon Kimliği
+                            </legend>
+
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                                <!-- Ad Soyad (text) -->
+                                <div>
+                                    <label for="obsName" data-mdn-tag="<label>" data-mdn-info="for özniteliği ile input#obsName öğesine açıkça bağlı etiket." class="block font-mono text-xs text-aether-text mb-1.5">
+                                        Baş Gözlemci Adı Soyadı <span class="text-aether-orange" title="Zorunlu Alan">*</span>
+                                    </label>
+                                    <input type="text" 
+                                           id="obsName" 
+                                           name="obsName" 
+                                           required 
+                                           placeholder="Örn: Dr. Arda Yılmaz"
+                                           class="w-full px-3.5 py-2 rounded bg-aether-surface border border-aether-border text-sm text-white focus:outline-none focus:border-aether-cyan">
+                                </div>
+
+                                <!-- Kurumsal E-posta (email) -->
+                                <div>
+                                    <label for="obsEmail" class="block font-mono text-xs text-aether-text mb-1.5">
+                                        Kurumsal E-posta Adresi <span class="text-aether-orange">*</span>
+                                    </label>
+                                    <input type="email" 
+                                           id="obsEmail" 
+                                           name="obsEmail" 
+                                           required 
+                                           placeholder="arastirmaci@gozlemevi.edu.tr"
+                                           class="w-full px-3.5 py-2 rounded bg-aether-surface border border-aether-border text-sm text-white focus:outline-none focus:border-aether-cyan">
+                                </div>
+
+                                <!-- İstasyon Kayıt Kodu (pattern validation) -->
+                                <div>
+                                    <label for="stationCode" class="block font-mono text-xs text-aether-text mb-1.5">
+                                        İstasyon Kodu (Desen: TR-000) <span class="text-aether-orange">*</span>
+                                    </label>
+                                    <input type="text" 
+                                           id="stationCode" 
+                                           name="stationCode" 
+                                           required 
+                                           pattern="[A-Za-z]{2}-[0-9]{3}"
+                                           title="Lütfen iki harf, tire ve üç rakam formatında girin (Örn: TR-104)"
+                                           placeholder="TR-104"
+                                           value="TR-006"
+                                           class="w-full px-3.5 py-2 rounded bg-aether-surface border border-aether-border font-mono text-sm text-aether-orange focus:outline-none focus:border-aether-cyan">
+                                </div>
+                            </div>
+                        </fieldset>
+
+                        <!-- FIELDSET 2: Gök Cismi ve Spektral Parametreler -->
+                        <fieldset data-mdn-tag="<fieldset>" 
+                                  data-mdn-info="Gözlem parametrelerini gruplayan ikinci <fieldset> bloğu."
+                                  class="border border-aether-border bg-aether-bg rounded-lg p-5 space-y-5">
+                            <legend class="px-3 py-1 bg-aether-surface border border-aether-border rounded font-mono text-xs font-bold text-aether-orange uppercase">
+                                02 // Hedef Yıldız Sistemi ve Spektral Ölçümler
+                            </legend>
+
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                                <!-- <select> ve <optgroup> -->
+                                <div>
+                                    <label for="targetSector" class="block font-mono text-xs text-aether-text mb-1.5">
+                                        Hedef Gök Cismi / Sektör <span class="text-aether-orange">*</span>
+                                    </label>
+                                    <select id="targetSector" 
+                                            name="targetSector" 
+                                            required
+                                            data-mdn-tag="<select>"
+                                            data-mdn-info="İçinde <optgroup> ile kategorize edilmiş seçenekler (<option>) barındıran açılır liste."
+                                            class="w-full px-3.5 py-2 rounded bg-aether-surface border border-aether-border text-sm text-white focus:outline-none focus:border-aether-cyan">
+                                        <option value="">-- Bir Hedef Seçiniz --</option>
+                                        <optgroup label="Güneş Sistemi İçi Hedefler">
+                                            <option value="Europa">Jüpiter // Europa Alt-Buzul Okyanusu</option>
+                                            <option value="Enceladus">Satürn // Enceladus Gayzerleri</option>
+                                            <option value="Titan">Satürn // Titan Metan Gölleri</option>
+                                        </optgroup>
+                                        <optgroup label="Doğrulanmış Ötegezegen Sistemleri">
+                                            <option value="TRAPPIST-1e" selected>TRAPPIST-1e (Kova Takımyıldızı)</option>
+                                            <option value="Proxima-b">Proxima Centauri b (Erboğa)</option>
+                                            <option value="Kepler-186f">Kepler-186f (Kuğu Takımyıldızı)</option>
+                                        </optgroup>
+                                    </select>
+                                </div>
+
+                                <!-- Gözlem Tarihi (date) -->
+                                <div>
+                                    <label for="obsDate" class="block font-mono text-xs text-aether-text mb-1.5">
+                                        Gözlem Tarihi (UTC) <span class="text-aether-orange">*</span>
+                                    </label>
+                                    <input type="date" 
+                                           id="obsDate" 
+                                           name="obsDate" 
+                                           required 
+                                           value="2026-10-15"
+                                           class="w-full px-3.5 py-2 rounded bg-aether-surface border border-aether-border font-mono text-sm text-white focus:outline-none focus:border-aether-cyan">
+                                </div>
+
+                                <!-- Denge Sıcaklığı (number) -->
+                                <div>
+                                    <label for="eqTemp" class="block font-mono text-xs text-aether-text mb-1.5">
+                                        Ölçülen Sıcaklık (Kelvin) <span class="text-aether-orange">*</span>
+                                    </label>
+                                    <input type="number" 
+                                           id="eqTemp" 
+                                           name="eqTemp" 
+                                           min="0" 
+                                           max="5000" 
+                                           step="0.5" 
+                                           required 
+                                           value="251.5"
+                                           class="w-full px-3.5 py-2 rounded bg-aether-surface border border-aether-border font-mono text-sm text-aether-cyan focus:outline-none focus:border-aether-cyan">
+                                </div>
+                            </div>
+
+                            <!-- Sinyal Gürültü Oranı (range slider) -->
+                            <div class="pt-2">
+                                <div class="flex justify-between font-mono text-xs mb-1.5">
+                                    <label for="snrRange" class="text-aether-text">Sinyal-Gürültü Oranı (SNR Güven Endeksi):</label>
+                                    <span id="snrValueDisplay" class="text-aether-emerald font-bold">88 dB</span>
+                                </div>
+                                <input type="range" 
+                                       id="snrRange" 
+                                       name="snrRange" 
+                                       min="10" 
+                                       max="120" 
+                                       value="88"
+                                       oninput="document.getElementById('snrValueDisplay').textContent = this.value + ' dB'"
+                                       class="w-full accent-aether-orange cursor-pointer">
+                            </div>
+
+                            <!-- Radyo (radio) ve Onay Kutusu (checkbox) Kontrolleri -->
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-2 border-t border-aether-border">
+                                <!-- Radio Grubu -->
+                                <div>
+                                    <span class="block font-mono text-xs text-aether-text mb-2">Telemetri Öncelik Sınıfı (Radio):</span>
+                                    <div class="space-y-2 text-xs sm:text-sm">
+                                        <label for="prioRoutine" class="flex items-center gap-2.5 cursor-pointer">
+                                            <input type="radio" id="prioRoutine" name="priorityLevel" value="Rutin" class="accent-aether-cyan">
+                                            <span>Sınıf-C // Rutin Yörünge Gözlemi</span>
+                                        </label>
+                                        <label for="prioPriority" class="flex items-center gap-2.5 cursor-pointer">
+                                            <input type="radio" id="prioPriority" name="priorityLevel" value="Yuksek" checked class="accent-aether-orange">
+                                            <span>Sınıf-B // Atmosferik Biyo-İmza Adayı</span>
+                                        </label>
+                                        <label for="prioCritical" class="flex items-center gap-2.5 cursor-pointer">
+                                            <input type="radio" id="prioCritical" name="priorityLevel" value="Kritik" class="accent-aether-orange">
+                                            <span class="text-aether-orange font-semibold">Sınıf-A // Tekno-İmza / Radyo Anomalisi</span>
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <!-- Checkbox Grubu -->
+                                <div>
+                                    <span class="block font-mono text-xs text-aether-text mb-2">Saptanan Moleküler İmzalar (Checkbox):</span>
+                                    <div class="space-y-2 text-xs sm:text-sm">
+                                        <label for="chemH2O" class="flex items-center gap-2.5 cursor-pointer">
+                                            <input type="checkbox" id="chemH2O" name="molecules" value="H2O" checked class="accent-aether-cyan">
+                                            <span>Su Buharı (H<sub>2</sub>O) Soğurma Hattı</span>
+                                        </label>
+                                        <label for="chemCH4" class="flex items-center gap-2.5 cursor-pointer">
+                                            <input type="checkbox" id="chemCH4" name="molecules" value="CH4" checked class="accent-aether-cyan">
+                                            <span>Metan (CH<sub>4</sub>) ve Karbondioksit (CO<sub>2</sub>)</span>
+                                        </label>
+                                        <label for="chemO3" class="flex items-center gap-2.5 cursor-pointer">
+                                            <input type="checkbox" id="chemO3" name="molecules" value="O3" class="accent-aether-cyan">
+                                            <span>Ozon (O<sub>3</sub>) Fotokimyasal Kalkanı</span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- <textarea> Çok Satırlı Gözlem Özeti -->
+                            <div class="pt-2">
+                                <label for="obsNotes" class="block font-mono text-xs text-aether-text mb-1.5">
+                                    Spektroskopik Gözlem Özeti ve Anomali Raporu <span class="text-aether-orange">*</span>
+                                </label>
+                                <textarea id="obsNotes" 
+                                          name="obsNotes" 
+                                          rows="3" 
+                                          required
+                                          data-mdn-tag="<textarea>"
+                                          data-mdn-info="Çok satırlı serbest metin giriş alanı."
+                                          placeholder="Gözlemlenen ışık eğrisi düşüşünü ve tayf verilerini buraya yazınız..."
+                                          class="w-full px-3.5 py-2 rounded bg-aether-surface border border-aether-border text-sm text-white focus:outline-none focus:border-aether-cyan">TRAPPIST-1e birincil geçişi esnasında 1.4 mikron dalga boyunda belirgin H2O soğurması kaydedildi.</textarea>
+                            </div>
+                        </fieldset>
+
+                        <!-- Form Butonları (<button type="submit"> ve <button type="reset">) -->
+                        <div class="flex flex-wrap items-center justify-between gap-4">
+                            <div class="flex flex-wrap items-center gap-3">
+                                <button type="submit" 
+                                        data-mdn-tag="<button type='submit'>"
+                                        data-mdn-info="Form verilerini doğrulayıp sunucuya/işleyiciye gönderen semantik gönderim düğmesi."
+                                        class="px-6 py-3 rounded bg-aether-orange hover:bg-orange-500 text-black font-mono text-xs font-bold uppercase tracking-wider transition-all cursor-pointer shadow-lg">
+                                    TELEMETRİ PAKETİNİ DOĞRULA VE GÖNDER
+                                </button>
+                                <button type="reset" 
+                                        onclick="resetFormFeedback()"
+                                        data-mdn-tag="<button type='reset'>"
+                                        data-mdn-info="Formdaki tüm alanları başlangıç değerlerine sıfırlayan düğme."
+                                        class="px-4 py-3 rounded bg-aether-bg hover:bg-aether-surfaceHover border border-aether-border text-aether-muted hover:text-white font-mono text-xs transition-all cursor-pointer">
+                                    VERİLERİ SIFIRLA (RESET)
+                                </button>
+                            </div>
+                            <span class="font-mono text-[11px] text-aether-muted">
+                                * HTML5 Doğrulama (Required / Pattern) Aktif
+                            </span>
+                        </div>
+
+                        <!-- Canlı JS Form Doğrulama Çıktı Paneli (Alert yerine özel UI mesaj kutusu) -->
+                        <div id="formFeedbackBox" class="hidden p-4 rounded border border-aether-emerald bg-aether-emerald/10 font-mono text-xs text-aether-emerald space-y-1">
+                            <!-- JS ile doldurulur -->
+                        </div>
+                    </form>
+                </section>
+
+            </article>
+
+            <!-- ==========================================================================
+                 SAĞ SÜTUN (4 BİRİM): <aside> YAN PANELİ VE <dl>, <dt>, <dd> SÖZLÜĞÜ
+                 ========================================================================== -->
+            <aside data-mdn-tag="<aside>" 
+                   data-mdn-info="Ana içerikle dolaylı olarak ilişkili yan bilgiler, telemetri durum göstergeleri ve astrofizik terimler sözlüğü (<dl>)."
+                   aria-label="Astrofizik Terimler Sözlüğü ve Canlı İstasyon Telemetrisi"
+                   class="lg:col-span-4 space-y-8 lg:sticky lg:top-16">
+
+                <!-- Kart 1: MDN Açıklama Listesi (<dl>, <dt>, <dd>) - Astrofizik Sözlüğü -->
+                <div class="bg-aether-surface border border-aether-border rounded-lg p-6 shadow-xl">
+                    <div class="flex items-center justify-between border-b border-aether-border pb-3 mb-4">
+                        <h2 class="font-display text-lg font-bold text-white flex items-center gap-2">
+                            <span class="font-mono text-xs text-aether-cyan bg-aether-cyan/10 px-2 py-0.5 rounded border border-aether-cyan/30">&lt;dl&gt;</span>
+                            Astrofizik Terimler Sözlüğü
+                        </h2>
+                        <span class="font-mono text-[10px] text-aether-muted">MDN LISTS</span>
+                    </div>
+
+                    <p class="text-xs text-aether-muted mb-4">
+                        MDN müfredatındaki <strong>Description List</strong> (<code class="text-aether-cyan">&lt;dl&gt;</code>, <code class="text-aether-cyan">&lt;dt&gt;</code>, <code class="text-aether-cyan">&lt;dd&gt;</code>) yapısına uygun bilimsel kavram tanımları:
+                    </p>
+
+                    <dl data-mdn-tag="<dl>" 
+                        data-mdn-info="Açıklama listesi (Description List); terim (<dt>) ve açıklama (<dd>) çiftlerini semantik olarak gruplar."
+                        class="space-y-4 text-sm">
+                        
+                        <div class="p-3.5 rounded bg-aether-bg border border-aether-border">
+                            <dt data-mdn-tag="<dt>" 
+                                data-mdn-info="Tanımlanan terim (Description Term)."
+                                class="font-mono font-bold text-aether-orange text-xs uppercase">
+                                Ötegezegen (Exoplanet)
+                            </dt>
+                            <dd data-mdn-tag="<dd>" 
+                                data-mdn-info="Üstündeki <dt> teriminin detaylı tanımı (Description Details)."
+                                class="mt-1 text-xs text-aether-text leading-relaxed">
+                                Güneş Sistemi'nin dışında, başka bir yıldızın, yıldız kalıntısının veya kahverengi cücenin yörüngesinde dolanan gezegen.
+                            </dd>
+                        </div>
+
+                        <div class="p-3.5 rounded bg-aether-bg border border-aether-border">
+                            <dt data-mdn-tag="<dt>" data-mdn-info="Tanımlanan terim." class="font-mono font-bold text-aether-cyan text-xs uppercase">
+                                Geçiş Fotometrisi (Transit Method)
+                            </dt>
+                            <dd data-mdn-tag="<dd>" data-mdn-info="Terim açıklaması." class="mt-1 text-xs text-aether-text leading-relaxed">
+                                Bir gezegenin ev sahibi yıldızın önünden geçerken yıldızın parlaklığında yarattığı periyodik mikro-düşüşlerin ölçülmesi tekniği.
+                            </dd>
+                        </div>
+
+                        <div class="p-3.5 rounded bg-aether-bg border border-aether-border">
+                            <dt data-mdn-tag="<dt>" data-mdn-info="Tanımlanan terim." class="font-mono font-bold text-aether-emerald text-xs uppercase">
+                                Biyo-İmza (Biosignature)
+                            </dt>
+                            <dd data-mdn-tag="<dd>" data-mdn-info="Terim açıklaması." class="mt-1 text-xs text-aether-text leading-relaxed">
+                                Geçmiş veya günümüzdeki biyolojik yaşam süreçlerine dair bilimsel kanıt sağlayan element, izotop veya molekül (örn. O<sub>2</sub> ve CH<sub>4</sub> birlikteliği).
+                            </dd>
+                        </div>
+
+                        <div class="p-3.5 rounded bg-aether-bg border border-aether-border">
+                            <dt data-mdn-tag="<dt>" data-mdn-info="Tanımlanan terim." class="font-mono font-bold text-amber-400 text-xs uppercase">
+                                Lagrange Noktası (L2)
+                            </dt>
+                            <dd data-mdn-tag="<dd>" data-mdn-info="Terim açıklaması." class="mt-1 text-xs text-aether-text leading-relaxed">
+                                Dünya'dan 1.5 milyon km uzaklıkta, Güneş ve Dünya'nın kütleçekim kuvvetlerinin merkezkaç kuvvetiyle dengelendiği derin uzay gözlem konumu.
+                            </dd>
+                        </div>
+                    </dl>
+                </div>
+
+                <!-- Kart 2: Akademik Vize Özeti & Hızlı Denetim Rehberi -->
+                <div class="bg-aether-surface border border-aether-border rounded-lg p-6 shadow-xl">
+                    <h2 class="font-display text-lg font-bold text-white border-b border-aether-border pb-3 mb-4">
+                        MDN Semantik Mimari Özeti
+                    </h2>
+                    <p class="text-xs text-aether-muted leading-relaxed mb-4">
+                        Üst araç çubuğundaki <strong>"Akademik Denetçi Modu"</strong> düğmesini etkinleştirerek sayfadaki tüm HTML5 yapı taşlarını canlı X-Ray katmanıyla inceleyebilirsiniz:
+                    </p>
+                    <div class="grid grid-cols-2 gap-2 font-mono text-[11px]">
+                        <div class="p-2 rounded bg-aether-bg border border-aether-border text-aether-cyan">&lt;header&gt; / &lt;nav&gt;</div>
+                        <div class="p-2 rounded bg-aether-bg border border-aether-border text-aether-cyan">&lt;main&gt; / &lt;article&gt;</div>
+                        <div class="p-2 rounded bg-aether-bg border border-aether-border text-aether-cyan">&lt;section&gt; / &lt;aside&gt;</div>
+                        <div class="p-2 rounded bg-aether-bg border border-aether-border text-aether-cyan">&lt;dl&gt; / &lt;dt&gt; / &lt;dd&gt;</div>
+                        <div class="p-2 rounded bg-aether-bg border border-aether-border text-aether-orange">&lt;address&gt; / &lt;time&gt;</div>
+                        <div class="p-2 rounded bg-aether-bg border border-aether-border text-aether-orange">&lt;blockquote&gt; / &lt;q&gt;</div>
+                        <div class="p-2 rounded bg-aether-bg border border-aether-border text-aether-emerald">&lt;colgroup&gt; / &lt;col&gt;</div>
+                        <div class="p-2 rounded bg-aether-bg border border-aether-border text-aether-emerald">&lt;fieldset&gt; / &lt;legend&gt;</div>
+                    </div>
+                </div>
+
+            </aside>
+
+        </div>
+    </main>
+
+    <!-- ==========================================================================
+         MDN DERS 3: <footer> ALT BİLGİ VE TELİF / ARŞİV LİSANSI
+         ========================================================================== -->
+    <footer data-mdn-tag="<footer>" 
+            data-mdn-info="Belgenin altbilgisi; telif hakkı, kurum adresi, erişilebilirlik beyanı ve hızlı bağlantıları barındırır."
+            class="border-t border-aether-border bg-aether-surface mt-16">
+        <div class="max-w-[1440px] mx-auto px-4 sm:px-8 py-10">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
+                <div>
+                    <span class="font-display font-bold text-lg text-white">
+                        AETHER-IX <span class="text-aether-orange">//</span> TELEMETRİ ARŞİVİ
+                    </span>
+                    <p class="mt-2 text-xs text-aether-muted leading-relaxed">
+                        Mozilla Developer Network (MDN) <em>"Structuring content with HTML"</em> çekirdek modülü temel alınarak Web Geliştirme Vize Projesi olarak geliştirilmiştir.
+                    </p>
+                </div>
+
+                <div class="font-mono text-xs space-y-1.5 text-aether-muted">
+                    <div class="text-white font-bold uppercase mb-2">Hızlı Bölüm Erişimi</div>
+                    <div><a href="#bolum-brifing" class="hover:text-aether-cyan">01. Görev Brifingi ve Listeler</a></div>
+                    <div><a href="#bolum-mektup" class="hover:text-aether-cyan">02. Resmi İletişim Mektubu</a></div>
+                    <div><a href="#bolum-multimedya" class="hover:text-aether-cyan">03. Multimedya ve SVG Haritası</a></div>
+                    <div><a href="#bolum-tablo" class="hover:text-aether-cyan">04. Erişilebilir Gezegen Tablosu</a></div>
+                    <div><a href="#bolum-form" class="hover:text-aether-cyan">05. Telemetri Bildirim Formu</a></div>
+                </div>
+
+                <div class="font-mono text-xs text-aether-muted md:text-right">
+                    <p class="text-white font-bold">AKADEMİK DOĞRULAMA KAYDI</p>
+                    <p class="mt-1">Standart: W3C HTML5 Living Standard &amp; WCAG 2.1 AA</p>
+                    <p class="mt-1">Son Güncelleme: <time datetime="2026-10-15">15 Ekim 2026</time></p>
+                    <p class="mt-3 text-[11px] text-aether-orange">© 2026 AETHER-IX Araştırma Konsorsiyumu. Açık Bilim Lisansı (CC-BY 4.0).</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ==========================================================================
+         MDN MÜFREDAT KONTROL LİSTESİ (12 ADIMLI RUBRİK MODAL / ÇEKMECESİ)
+         ========================================================================== -->
+    <div id="rubricModal" 
+         role="dialog" 
+         aria-modal="true" 
+         aria-labelledby="rubricModalTitle"
+         class="fixed inset-0 z-50 hidden bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
+        
+        <div class="bg-aether-surface border-2 border-aether-orange rounded-lg max-w-4xl w-full max-h-[88vh] flex flex-col shadow-2xl overflow-hidden">
+            <!-- Modal Üstbilgi -->
+            <div class="p-5 bg-aether-bg border-b border-aether-border flex items-center justify-between">
+                <div>
+                    <span class="font-mono text-xs text-aether-orange uppercase">AKADEMİK VİZE DEĞERLENDİRME REHBERİ</span>
+                    <h2 id="rubricModalTitle" class="font-display text-xl sm:text-2xl font-bold text-white">
+                        MDN "Structuring content with HTML" Müfredat Eşleştirme Matrisi (12/12)
+                    </h2>
+                </div>
+                <button type="button" 
+                        onclick="toggleRubricModal()" 
+                        class="px-3 py-1.5 rounded bg-aether-surface hover:bg-aether-orange hover:text-black border border-aether-border font-mono text-xs font-bold transition-colors cursor-pointer">
+                    KAPAT [ESC]
+                </button>
+            </div>
+
+            <!-- Modal İçerik Listesi -->
+            <div class="p-6 overflow-y-auto space-y-3 text-xs sm:text-sm">
+                <p class="text-aether-muted mb-4">
+                    Aşağıdaki tablo, MDN modülündeki her bir ders ve sınavın bu projede hangi satır/bölümde ve hangi HTML5 etiketleriyle karşılandığını gösterir. İlgili bölüme gitmek için bağlantılara tıklayabilirsiniz:
+                </p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-3 font-mono text-xs">
+                    <div class="p-3.5 rounded bg-aether-bg border border-aether-border">
+                        <div class="text-aether-emerald font-bold">✓ 01. Basic HTML Syntax &amp; Metadata (&lt;head&gt;)</div>
+                        <p class="text-aether-muted mt-1 font-sans"><code>charset="utf-8"</code>, <code>viewport</code>, <code>author</code>, <code>description</code> ve OpenGraph etiketleri eksiksiz tanımlandı.</p>
+                    </div>
+
+                    <div class="p-3.5 rounded bg-aether-bg border border-aether-border">
+                        <div class="text-aether-emerald font-bold">✓ 02. Headings and Paragraphs</div>
+                        <p class="text-aether-muted mt-1 font-sans">Sıkı <code>&lt;h1&gt;</code> → <code>&lt;h2&gt;</code> → <code>&lt;h3&gt;</code> → <code>&lt;h4&gt;</code> hiyerarşisi ve semantik <code>&lt;p&gt;</code> blokları.</p>
+                    </div>
+
+                    <div class="p-3.5 rounded bg-aether-bg border border-aether-border">
+                        <div class="text-aether-emerald font-bold">✓ 03. Emphasis and Importance</div>
+                        <p class="text-aether-muted mt-1 font-sans"><code>&lt;strong&gt;</code>, <code>&lt;em&gt;</code> ve kritik veriler için <code>&lt;mark&gt;</code> etiketleri kullanıldı.</p>
+                    </div>
+
+                    <div class="p-3.5 rounded bg-aether-bg border border-aether-border">
+                        <div class="text-aether-emerald font-bold">✓ 04. Lists (&lt;ul&gt;, &lt;ol&gt;, &lt;dl&gt;)</div>
+                        <p class="text-aether-muted mt-1 font-sans">Görev hedefleri (<code>&lt;ul&gt;</code>), fırlatma adımları (<code>&lt;ol&gt;</code>) ve Sağ Panel Astrofizik Sözlüğü (<code>&lt;dl&gt;, &lt;dt&gt;, &lt;dd&gt;</code>).</p>
+                    </div>
+
+                    <div class="p-3.5 rounded bg-aether-bg border border-aether-border">
+                        <div class="text-aether-emerald font-bold">✓ 05. Structuring Documents (Semantik İskelet)</div>
+                        <p class="text-aether-muted mt-1 font-sans">Skip-link, <code>&lt;header&gt;</code>, <code>&lt;nav&gt;</code>, <code>&lt;main&gt;</code>, <code>&lt;article&gt;</code>, 5 adet <code>&lt;section&gt;</code>, <code>&lt;aside&gt;</code> ve <code>&lt;footer&gt;</code>.</p>
+                    </div>
+
+                    <div class="p-3.5 rounded bg-aether-bg border border-aether-border">
+                        <div class="text-aether-orange font-bold">★ 06. CHALLENGE: Marking up a Letter &amp; Advanced Text</div>
+                        <p class="text-aether-muted mt-1 font-sans">Bölüm 02'de <code>&lt;address&gt;</code>, <code>&lt;time datetime&gt;</code>, <code>&lt;abbr&gt;</code>, <code>&lt;blockquote cite&gt;</code>, <code>&lt;q&gt;</code>, <code>&lt;cite&gt;</code>, <code>&lt;sub&gt;</code>, <code>&lt;sup&gt;</code>, <code>&lt;code&gt;</code>, <code>&lt;pre&gt;</code>, <code>&lt;kbd&gt;</code>, <code>&lt;var&gt;</code>.</p>
+                    </div>
+
+                    <div class="p-3.5 rounded bg-aether-bg border border-aether-border">
+                        <div class="text-aether-emerald font-bold">✓ 07. Creating Links</div>
+                        <p class="text-aether-muted mt-1 font-sans">Sayfa içi <code>#anchor</code>, güvenli dış bağlantılar (<code>noopener noreferrer</code>), <code>mailto:</code>, <code>tel:</code> ve <code>download</code> raporu.</p>
+                    </div>
+
+                    <div class="p-3.5 rounded bg-aether-bg border border-aether-border">
+                        <div class="text-aether-emerald font-bold">✓ 08. HTML Images &amp; Vector Graphics (SVG)</div>
+                        <p class="text-aether-muted mt-1 font-sans"><code>&lt;figure&gt;</code>, <code>&lt;figcaption&gt;</code>, duyarlı <code>&lt;img&gt;</code> ve tıklanabilir etkileşimli <code>&lt;svg&gt;</code> yörünge haritası.</p>
+                    </div>
+
+                    <div class="p-3.5 rounded bg-aether-bg border border-aether-border">
+                        <div class="text-aether-emerald font-bold">✓ 09. HTML Video and Audio (+ Web Audio Synth)</div>
+                        <p class="text-aether-muted mt-1 font-sans"><code>&lt;video&gt;</code>, <code>&lt;audio&gt;</code>, <code>&lt;source&gt;</code>, <code>&lt;track&gt;</code> altyazı ve canlı ses üreten Pulsar Sentezleyici.</p>
+                    </div>
+
+                    <div class="p-3.5 rounded bg-aether-bg border border-aether-border">
+                        <div class="text-aether-orange font-bold">★ 10. CHALLENGE: Structuring a Planet Data Table</div>
+                        <p class="text-aether-muted mt-1 font-sans">Bölüm 04'te <code>&lt;caption&gt;</code>, <code>&lt;colgroup&gt;</code> sütun vurgusu, <code>scope="rowgroup"</code>, <code>rowspan</code> ve <code>colspan</code>.</p>
+                    </div>
+
+                    <div class="p-3.5 rounded bg-aether-bg border border-aether-border md:col-span-2">
+                        <div class="text-aether-orange font-bold">★ 11 &amp; 12. CHALLENGE: Forms and Buttons in HTML</div>
+                        <p class="text-aether-muted mt-1 font-sans">Bölüm 05'te <code>&lt;form&gt;</code>, çoklu <code>&lt;fieldset&gt;</code> ve <code>&lt;legend&gt;</code>, açık <code>&lt;label for&gt;</code> eşleştirmeleri, tüm input tipleri, <code>&lt;select&gt;</code> + <code>&lt;optgroup&gt;</code>, <code>&lt;textarea&gt;</code> ve HTML5 doğrulama.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal Altbilgi -->
+            <div class="p-4 bg-aether-bg border-t border-aether-border flex items-center justify-between">
+                <span class="font-mono text-xs text-aether-cyan">İpucu: X-Ray modunu açarak bu etiketlerin sayfadaki yerleşimini canlı görebilirsiniz.</span>
+                <button type="button" 
+                        onclick="toggleRubricModal(); if(!document.body.classList.contains('xray-active')) toggleXRayMode();" 
+                        class="px-4 py-2 rounded bg-aether-cyan text-black font-mono text-xs font-bold hover:bg-sky-300 transition-colors cursor-pointer">
+                    X-RAY MODUNU AÇ VE İNCELE
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==========================================================================
+         JAVASCRIPT: AKADEMİK X-RAY DENETÇİSİ, WEB AUDIO PULSAR SENTEZİ & FORM İŞLEYİCİ
+         ========================================================================== -->
+    <script>
+        // 1. Akademik Denetçi Modu (MDN Semantik X-Ray) Aç/Kapat
+        function toggleXRayMode() {
+            const body = document.body;
+            const btn = document.getElementById('xrayToggleBtn');
+            const stateText = document.getElementById('xrayStateText');
+            const statusDot = document.getElementById('xrayStatusDot');
+
+            const isActive = body.classList.toggle('xray-active');
+            btn.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+
+            if (isActive) {
+                stateText.textContent = 'AKTİF (ETİKETLER GÖRÜNÜR)';
+                stateText.classList.add('text-aether-orange');
+                statusDot.classList.remove('bg-slate-600');
+                statusDot.classList.add('bg-aether-orange', 'animate-ping');
+            } else {
+                stateText.textContent = 'KAPALI';
+                stateText.classList.remove('text-aether-orange');
+                statusDot.classList.remove('bg-aether-orange', 'animate-ping');
+                statusDot.classList.add('bg-slate-600');
+            }
+        }
+
+        // 2. MDN Müfredat Kontrol Listesi (Rubrik Modal) Aç/Kapat
+        function toggleRubricModal() {
+            const modal = document.getElementById('rubricModal');
+            modal.classList.toggle('hidden');
+        }
+
+        // ESC tuşu ile Rubrik Modalını kapatma
+        window.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                const modal = document.getElementById('rubricModal');
+                if (!modal.classList.contains('hidden')) {
+                    modal.classList.add('hidden');
+                }
+            }
+        });
+
+        // 3. İnteraktif <svg> Yörünge Vektör Haritası Tıklama İşleyicisi
+        function selectPlanetVector(name, details) {
+            const readout = document.getElementById('svgTelemetryReadout');
+            readout.innerHTML = `
+                <span><strong class="text-aether-orange">${name}:</strong> ${details}</span>
+                <span class="text-aether-emerald font-bold">● KİLİTLENDİ</span>
+            `;
+        }
+
+        // 4. Web Audio API Pulsar Sentezleyicisi (PSR B1919+21 Simülasyonu)
+        let audioCtx = null;
+        let pulsarInterval = null;
+        let isPulsarPlaying = false;
+
+        function togglePulsarAudio() {
+            const btnText = document.getElementById('pulsarBtnText');
+            const btnIcon = document.getElementById('pulsarBtnIcon');
+            const badge = document.getElementById('pulsarFreqBadge');
+
+            if (isPulsarPlaying) {
+                clearInterval(pulsarInterval);
+                isPulsarPlaying = false;
+                btnText.textContent = 'PULSAR SİNYALİNİ SENTEZLE (SESLİ)';
+                btnIcon.textContent = '▶';
+                badge.textContent = 'DURUM: DURDURULDU';
+                badge.className = 'font-mono text-xs text-aether-muted';
+                return;
+            }
+
+            try {
+                const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+                if (!audioCtx) {
+                    audioCtx = new AudioContextClass();
+                }
+                if (audioCtx.state === 'suspended') {
+                    audioCtx.resume();
+                }
+
+                isPulsarPlaying = true;
+                btnText.textContent = 'PULSAR AKUSTİK AKIŞINI DURDUR';
+                btnIcon.textContent = '■';
+                badge.textContent = 'AKTİF // 1.337 Hz DARBE';
+                badge.className = 'font-mono text-xs text-aether-emerald font-bold animate-pulse';
+
+                // İlk darbeyi hemen çal, ardından her 420ms'de bir nötron yıldızı radyo darbesi üret
+                triggerPulsarBeep();
+                pulsarInterval = setInterval(triggerPulsarBeep, 420);
+            } catch (err) {
+                badge.textContent = 'SES MOTORU HATASI';
+            }
+        }
+
+        function triggerPulsarBeep() {
+            if (!audioCtx) return;
+            const now = audioCtx.currentTime;
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+
+            osc.type = 'sawtooth';
+            osc.frequency.setValueAtTime(145, now);
+            osc.frequency.exponentialRampToValueAtTime(48, now + 0.09);
+
+            gain.gain.setValueAtTime(0.18, now);
+            gain.gain.exponentialRampToValueAtTime(0.001, now + 0.11);
+
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+
+            osc.start(now);
+            osc.stop(now + 0.12);
+        }
+
+        // 5. Telemetri Formu Gönderim İşleyicisi (Alert kullanmadan zengin geri bildirim)
+        function handleTelemetrySubmit(event) {
+            event.preventDefault();
+            const form = event.target;
+            const feedbackBox = document.getElementById('formFeedbackBox');
+
+            const observer = form.obsName.value;
+            const station = form.stationCode.value.toUpperCase();
+            const target = form.targetSector.value;
+            const temp = form.eqTemp.value;
+            const snr = form.snrRange.value;
+            const priority = form.priorityLevel.value;
+
+            const checkedMolecules = Array.from(form.querySelectorAll('input[name="molecules"]:checked'))
+                .map(cb => cb.value)
+                .join(', ') || 'Belirtilmedi';
+
+            feedbackBox.classList.remove('hidden');
+            feedbackBox.innerHTML = `
+                <div class="font-bold text-white text-sm mb-1">✓ TELEMETRİ PAKETİ BAŞARIYLA DOĞRULANDI VE ARŞİVE İŞLENDİ</div>
+                <div>• <strong>Gözlemci / İstasyon:</strong> ${observer} [${station}]</div>
+                <div>• <strong>Hedef Gök Cismi:</strong> ${target} (Sıcaklık: ${temp} K // SNR: ${snr} dB)</div>
+                <div>• <strong>Öncelik &amp; Moleküller:</strong> Sınıf-${priority} // [${checkedMolecules}]</div>
+                <div class="text-aether-cyan pt-1">Şema Doğrulaması: Tüm HTML5 &lt;fieldset&gt;, &lt;label&gt; ve pattern kısıtlamaları karşılandı.</div>
+            `;
+        }
+
+        function resetFormFeedback() {
+            const feedbackBox = document.getElementById('formFeedbackBox');
+            feedbackBox.classList.add('hidden');
+            document.getElementById('snrValueDisplay').textContent = '88 dB';
+        }
+    </script>
+</body>
+</html>

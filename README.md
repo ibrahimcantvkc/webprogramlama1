@@ -8,14 +8,14 @@ Bu depo, Web Programlama I dersinin resmi **"Çevik (Agile) Operasyon Merkezi"**
 
 ---
 
-## 📂 Depo Yapısı
+## 📂 Depo Yapısı (Resmi Dokümantasyon Uyumlu)
 
 ```
 web-programlama1/
 │
 ├── README.md                        ← bu dosya
 │
-├── 01-web-temelleri/                ← KONU 1
+├── 01-getting-started-1/            ← Getting Started (Takım 1)
 │   ├── ceviri/
 │   │   └── 2026-guz-404klup.md
 │   ├── sunum/
